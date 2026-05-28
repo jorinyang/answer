@@ -216,7 +216,7 @@ answer 作为编排器，在 Build 阶段调用 Hermes 技能生态：
 
 | 产出类型 | 调用的技能 |
 |---------|-----------| 
-| HTML 页面 / 展示页 | [`feishu-html`](https://github.com/jorinyang/answer) |
+| HTML 页面 / 展示页 | `feishu-html` |
 | 飞书在线文档 | `feishu-doc` |
 | SVG 架构图 | `architecture-diagram` |
 | 客户行程落地页 | `trip-landing` |
