@@ -242,58 +242,57 @@ triggers:
 
 所有产出创建为飞书在线文档，归档到 Wiki 节点 `J4EewYIT2ieFuwkRWbxcgWbFnhe`（AI Native 工作流）下。
 
-目录结构：
+**默认模式：合并文档**（用户偏好）。Phase 1-5 合并为单一飞书文档 `{answername}_工作流全记录`，各阶段作为一级章节。Phase 6 Build 产出最终交付物（方案文档/报告等），Phase 7 Review 追加到工作流记录文档末尾。
+
 ```
 J4EewYIT2ieFuwkRWbxcgWbFnhe (AI Native 工作流)
-└── {answername}/                    ← 项目 slug（如 "gzzhike-summer-plan"）
-    ├── CLARIFY_{answername}.md      ← Phase 1 产出
-    ├── BRIEF_{answername}.md        ← Phase 2 产出
-    ├── ARCHITECTURE_{answername}.md ← Phase 3 产出
-    ├── STANDARDS_{answername}.md    ← Phase 4 产出
-    ├── TASKS_{answername}.md        ← Phase 5 产出
-    ├── BUILD_LOG_{answername}.md   ← Phase 6 产出
-    └── REVIEW_{answername}.md      ← Phase 7 产出
+└── {answername}_工作流全记录        ← Phase 1-5 合并 + Phase 7 Review 追加
+    ├── # Phase 1: Clarify
+    ├── # Phase 2: Brief
+    ├── # Phase 3: Architect
+    ├── # Phase 4: Standards
+    ├── # Phase 5: Decompose
+    └── # Phase 7: Review
+└── {最终交付物}                     ← Phase 6 Build 产出（方案文档/报告等）
 ```
 
-**创建文档方法**：使用飞书 Open API 在指定 parent_node_token 下创建文档，然后用 lark-cli 写入内容。
+**分文档模式**（仅在用户明确要求时使用）——每阶段独立文档：
 
-```python
-import urllib.request, urllib.parse, json
-
-def create_wiki_doc(token, space_id, parent_token, title):
-    """在 Wiki 节点下创建文档，返回 obj_token 和 url"""
-    req = urllib.request.Request(
-        f'https://open.feishu.cn/open-apis/wiki/v2/spaces/{space_id}/nodes',
-        data=json.dumps({
-            'obj_type': 'docx',
-            'parent_node_token': parent_token,
-            'node_type': 'origin',
-            'title': title
-        }).encode(),
-        headers={
-            'Authorization': f'Bearer {token}',
-            'Content-Type': 'application/json'
-        },
-        method='POST'
-    )
-    with urllib.request.urlopen(req) as r:
-        data = json.loads(r.read())['data']
-        return data['node']['obj_token'], data['node']['url']
-
-def write_doc_content(token, obj_token, content):
-    """用 lark-cli overwrite 写入飞书文档"""
-    import subprocess, tempfile, os
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as f:
-        f.write(content)
-        tmp = f.name
-    subprocess.run([
-        'lark-cli', 'docs', '+update', '--api-version', 'v2',
-        '--doc', obj_token, '--command', 'overwrite',
-        '--content', f'@{os.path.relpath(tmp)}', '--as', 'bot'
-    ], check=True, cwd=os.path.dirname(tmp))
-    os.unlink(tmp)
+```
+J4EewYIT2ieFuwkRWbxcgWbFnhe (AI Native 工作流)
+└── {answername}/
+    ├── CLARIFY_{answername}
+    ├── BRIEF_{answername}
+    ├── ARCHITECTURE_{answername}
+    ├── STANDARDS_{answername}
+    ├── TASKS_{answername}
+    ├── BUILD_LOG_{answername}
+    └── REVIEW_{answername}
 ```
 
+**注意**：Phase 1-5 产出完成后，如果用户要求合并已有文档，使用 `lark-cli wiki +node-delete --node-token TOKEN --obj-type wiki --yes` 删除分散文档（注意 `--obj-type wiki` 而非 `docx`），创建合并文档后重新写入。
+
+**创建文档方法**：必须使用 v2 API 一步法。**禁止两步法**（Wiki API 建节点 + docs update 写内容）——该模式在 lark-cli v1.0.40–v1.0.44 上返回 `ok:true` 但文档永远为空。
+
+```bash
+# ✅ 一步法（唯一可靠方式）
+cd /tmp
+cat > doc.md << 'EOF'
+# {标题}
+
+{markdown 内容}
+EOF
+
+lark-cli docs +create --api-version v2 --doc-format markdown \
+  --title "{文档标题}" --content @doc.md \
+  --parent-token {parent_node_token} --as bot
+```
+
+**写入后校验**：
+```bash
+lark-cli docs +fetch --api-version v2 --doc {document_id} --as bot
+# 确认 revision_id > 1 且 blocks 数 > 0
+```
 ---
 
 ## 阶段详情
@@ -586,9 +585,10 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 **方法**：
 1. 从 Foundation 第一个任务开始
 2. 完成后立即验证（对照 Standards 中的 DoD）
-3. 打勾 ✅ 标记完成，输出该任务的交付物
-4. 确认后进入下一个任务
-5. 所有任务完成后，记录构建日志
+3. 🔴 **文档写入后强制校验**：每次用 `lark-cli docs +update --command overwrite` 写入飞书文档后，立刻 `lark-cli docs +fetch` 确认 `revision_id > 1` 且文本内容存在。创建时 revision_id=1 且无文本 = 写入失败。不跳过此步。
+4. 打勾 ✅ 标记完成，输出该任务的交付物
+5. 确认后进入下一个任务
+6. 所有任务完成后，记录构建日志
 
 **产出**：`BUILD_LOG_{answername}.md` + 各任务的交付物
 
@@ -720,10 +720,12 @@ Date: {date}
 
 | # | 陷阱 | 后果 | 正确做法 |
 |---|------|------|---------|
+| 0 | **用两步法创建文档（Wiki API 建节点 + v2 update 写内容）** | 返回 `ok:true` revision_id 递增但 blocks=0，文档永远为空。lark-cli v1.0.40–v1.0.44 均存在此 bug | 必须用一步法：`docs +create --api-version v2 --doc-format markdown --title \"标题\" --content @file.md --parent-token TOKEN --as bot`。详见 feishu-doc 技能「两步法陷阱」 |
 | 1 | 跳过 Clarify 直接写 Brief | 后续阶段基于未验证假设 | 至少确认 3 个核心假设 |
 | 2 | Brief 写成功能列表 | 失去方向一致性 | 用"体验/流程"语言描述，不用"功能"语言 |
 | 3 | Architect 过于抽象 | 拆解时无法落地 | 每个模块必须有具体的内容描述 |
-| 4 | Standards 写了不用 | Build 时偏离规范 | Build 每完成一个任务对照 Standards 的 DoD |
+| 4 | Standards 写了不用 | Build 产出与 Standards 矛盾——最典型的是 Standards 写"以内容需求为准"但 Build 产出写了具体数字（如"8-45s""8-15s"），用户一眼发现。定性标准被 Build 偷换成定量捷径 | Build 每完成一个任务对照 Standards 逐条检查，尤其警惕"数值化改写"——Standards 说"以内容为准"就不能在产出里写任何时长范围 |
+| 4a | **训练/教学类文档的 Standards 写成"讲师备课用的提词器/教学备注"** | 用户会说"内容的规范应当是讲师面对学员要表达的内容"。Standards 定义了全文档的写作基调，写错则全篇语气偏离 | Standards 的「内容规范」必须写"讲师口吻，面向学员——文档=讲师张嘴就能念的逐字稿"，禁止写"此处讲师引导""讲师应在此处强调"等幕后备注。详见 `references/training-proposal-template.md` 常见陷阱第二条 |
 | 5 | Review 只挑问题不说不好的 | 团队不知道自己什么做对了 | 必须包含 "What Works Well" |
 
 ### ⛔ 反例与禁止操作
@@ -739,8 +741,13 @@ Date: {date}
 | 5 | **Review 评分用"大概 80 分"/"还不错"等主观表述** | 无量化评分不可复现、不可对比 | 对照审查表的 5 个维度逐项打分，计算加权总分 |
 | 6 | **Wiki API 失败时静默跳过，用户不知道产出丢失** | 静默失败是最危险的失败模式 | 降级到本地文件并明确告知用户 |
 | 7 | **领域识别错误时强行继续而不纠正** | 用错误的追问模板走完全程 = 全篇作废 | 任何阶段发现领域不匹配，立即回退到 Clarify 重新确认 |
+| 8 | **用 answer 子方法论裸拼替代完整 7 阶段** | 用户说"用 answer 方法论"，但 Agent 只调用了 grill-me/design-brief/information-architecture 等子方法独立拼凑，跳过 7 阶段的交互确认流。产出看似用了设计方法论，实则完全脱离了 answer 的编排逻辑。用户会发现你根本没走 answer | answer 的 7 阶段是**强制管线**——Phase 1 到 Phase 7 必须按序执行，每阶段有用户确认检查点。用子方法论碎片≠用了 answer。触发器："用 answer 方法论"/"请使用answer的方法论" → 必须从 Phase 1 Clarify 开始完整走 7 阶段交互 |
+| 9 | **把"重构 README"误解为"做网页"** | 用户说"用 answer + huashu-design 重构 GitHub README"，Agent 创建了一个 HTML SPA 页面而不是 markdown 文件。GitHub README 是纯文本，不是 Web 应用 | README 重构 = 重写 markdown 文件。huashu-design 在此场景中为轻量注入（信息层级 + 反 AI slop），不是做 HTML 页面。详见 `references/readme-design-paradigm.md` |
 
-> 💡 以上 7 条反例来自 answer 第一次端到端测试的发现和 Darwin 优化器的实证数据。每一条都对应至少一次真实翻车。
+| 10 | **每个阶段单独创建飞书文档** | 用户明确偏好合并输出，拆散文档增加管理负担。Phase 1-5 应合并为单一工作流记录文档 | 默认合并：`{answername}_工作流全记录`。Phase 1-5 为章节，Phase 6 产出独立交付物文档，Phase 7 Review 追加到工作流记录末尾 |
+| 11 | **用 `wiki +node-delete --obj-type docx` 删 Wiki 节点** | Wiki 节点的 obj_type 是 `wiki` 而非 `docx`。用错会报 131005 not found | 使用 `lark-cli wiki +node-delete --node-token TOKEN --obj-type wiki --yes --as bot`
+| 12 | **创建文档后不验证 title** | 飞书 API 偶发静默回退 title 为 "Untitled"——创建返回成功但文档名是默认值 | 创建后立即 `lark-cli api GET /open-apis/wiki/v2/spaces/get_node` 检查 `title != "Untitled"` |
+| 13 | **培训文档写成了给讲师的元注释而非逐字稿** | 用户纠正"内容规范应当是讲师面对学员要表达的内容"。Agent 在 Standards 中写"讲师视角""一句话核心——讲师用"等元注释方向，但应该直接写出讲师对学员要说的话，不是给讲师看的备注。用户一眼发现方向错误 | 培训/授课类文档的 Standards 内容规范必须声明"面向学员的逐字稿，不是给讲师的备注"。判断标准：文档中的每一句话，讲师能否直接念给学员听？不能念的=不该写。结构骨架可以有控制标记（⏱/🖐️），但正文内容必须是可念出口的话 |
 
 ### 错误处理
 
@@ -748,26 +755,28 @@ Date: {date}
 
 | 触发条件 (IF) | 一线修复 (THEN) | 仍失败时 (FALLBACK) |
 |------|---------|------|
-| Wiki API 创建文档失败（99992402） | 检查请求体是否包含 `node_type: "origin"`；重试 2 次（间隔 2s） | 降级为本地 `.md` 文件写入 `~/.hermes-feishu/answer/`，告知用户 API 不可用 |
-| Wiki API 返回其他错误码 | 打印完整 error response，分析 `msg` 字段 | 同上降级；记录错误日志供后续排查 |
+| Wiki API 创建文档失败（99992402） | 检查请求体 node_type 字段；重试 2 次（间隔 2s） | 降级为本地 .md 文件写入 ~/.hermes-feishu/answer/ |
+| **创建成功但 title 为 Untitled** | 删除原节点，3s 间隔重试创建 | 仍失败则用 API 单独 PATCH 更新 title |
+| Wiki API 返回其他错误码 | 打印完整 error response | 同上降级 |
 | lark-cli 写入失败 | 检查 lark-cli 配置（`lark-cli config show`），确认 `--as bot` 可用 | 改用 curl 直接调飞书 Open API（`docx/v1/documents/{id}/blocks` 批量写入） |
 | token 过期（99991663） | 重新调用 `auth/v3/tenant_access_token/internal` 获取新 token | 若连续 3 次获取失败，告知用户检查飞书应用凭证 |
 | 用户在阶段间 5 分钟不回复 | 不催促；保留已完成的 Wiki 文档作为检查点 | 不主动关闭；用户返回时从中断恢复流程继续 |
 | 领域无法自动识别 | 默认使用「新方案」模板；向用户展示候选领域，让用户选择 | 用户不选时以「新方案」开始 |
 | 用户输入过于模糊无法展开决策树 | 输出 1 个具体追问（如"你能举一个具体的使用场景吗？"），不强行还原 | 缩小追问范围到最核心的 1 个问题 |
 | Build 阶段某任务失败 | 标记该任务为 ❌，记录错误详情到 BUILD_LOG | 跳过该任务继续下一个；Phase 7 Review 时汇总所有失败任务 |
+| execute_code 脚本语法错误导致终端调用静默跳过 | 脚本中的 f-string 反斜杠等语法错误会使整个 execute_code 提前终止，后续 terminal() 调用全部不执行 | ① 写完文档后用 `docs +fetch` 验证 revision_id 递增且文本存在 ② 复杂脚本拆为多个 execute_code 调用，降低单点失败影响面 ③ f-string 中的引号检查用变量替代（`ok = '"ok": true' in output`） |
+| docs +update overwrite 返回成功但文档为空 | 创建时用的 `wiki +node-create` 生成空 docx，如果 overwrite 的 execute_code 脚本静默失败，revision_id 仍为 1 且无文本 | 每次 overwrite 后立刻 `docs +fetch` 检查 `revision_id > 1` 且有文本内容 |
 | 产出目录 `{answername}/` 下已有同名项目 | 追加时间戳后缀（`{answername}-{HHmm}`）避免覆盖 | 告知用户已有同名项目，询问是覆盖还是新建 |
 
 ### 中断恢复
 
 当用户说"暂停"/"够了"/"之后继续"，或对话中断后用户返回：
 
-1. **检查 Wiki 节点**：列出 `J4EewYIT2ieFuwkRWbxcgWbFnhe` 下 `{answername}/` 中的已有文档
+1. **检查 Wiki 节点**：列出 `J4EewYIT2ieFuwkRWbxcgWbFnhe` 下的已有文档
 2. **判断进度**：根据已存在的文档判断当前在哪个阶段：
-   - `CLARIFY_*.md` 存在 → 已完成 Phase 1
-   - `BRIEF_*.md` 存在 → 已完成 Phase 2
-   - ...类推
-3. **从中断阶段继续**：告知用户「上次进行到 Phase {N}，产出 {doc_list}，从 Phase {N+1} 继续？」
+   - `{answername}_工作流全记录` 存在 → 读取内容，判断最后完成的阶段
+   - 各阶段独立文档存在（旧模式）→ 按文档名判断
+3. **从中断阶段继续**：告知用户「上次进行到 Phase {N}，从 Phase {N+1} 继续？」
 4. **如果 Wiki 中无记录**：检查 `~/.hermes-feishu/answer/` 本地降级目录
 
 ### 与现有技能互动规则
@@ -776,9 +785,11 @@ Date: {date}
 |------|---------|
 | Phase 6 Build 生成 HTML 页面 | 加载 `feishu-html` 技能，使用其阶段三—六流程。answer 的 Standards 中定义的品牌/风格规范传给 feishu-html |
 | Phase 6 Build 生成飞书文档 | 加载 `feishu-doc` 技能，使用其创建流程 |
+| Phase 6 Build 重构/优化 README 或文档 | 加载 `huashu-design` 技能，轻量注入信息层级和反 AI slop 原则（注意：README 是 markdown，不是 HTML 页面） |
 | Phase 6 Build 创建技能 | 使用 `skill_manage(action='create')` |
 | Phase 7 Review HTML 产出 | 加载 `feishu-html` 技能，使用其增强版阶段五（含 design-review 设计质量审查） |
 | Phase 7 Review 方案文档 | 加载 `blue-team` 技能，对方案逻辑进行压力测试 |
+| Phase 7 Review 文档/README 产出 | 使用 answer 自身的 5 维度对照审查表（完整性/一致性/标准合规/依赖闭合/受众适配），不需要 blue-team |
 | 所有阶段 Wiki 操作 | 使用本技能内置的 Feishu API 封装；不依赖 feishu-wiki 技能（避免循环依赖） |
 
 ---
@@ -851,10 +862,10 @@ Phase 7 REVIEW → 对照审查 + blue-team 压力测试：
 
 ## 验证清单
 
-- [ ] 每个阶段都产生了对应文档并写入飞书 Wiki
-- [ ] 文档目录结构符合规范（`{answername}/CLARIFY_*.md` 等）
+- [ ] 工作流记录文档已创建并写入飞书 Wiki（Phase 1-5 合并为单文档，Phase 7 追加）
 - [ ] Phase 2 Brief 包含 ≤ 3 条核心原则
 - [ ] Phase 5 任务全是垂直切片，无纯搭建任务
+- [ ] Phase 6 Build 交付物已独立写入飞书 Wiki
 - [ ] Phase 7 Review 包含对照审查 + 蓝军审查
 - [ ] Review 中有具体评分
 
@@ -863,6 +874,10 @@ Phase 7 REVIEW → 对照审查 + blue-team 压力测试：
 ## 开源仓库
 
 GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md + domain-mapping + README + CHANGELOG，含 v1.0.0 / v1.1.0 / v1.1.1 三个 Release。
+
+> **非飞书环境？** 使用 `answer-standalone` 技能（v2.0.0），纯本地 markdown 输出，零外部依赖。与原版 answer 共享相同的 7 阶段方法论和 6 领域模板。
+
+**独立封装文档**: [Answer 方法论完全指南](https://acn3kz7weyc0.feishu.cn/wiki/JYK4wJTEdiA3TPkN8R3ceMJCnfd) — 脱离 Hermes 技能系统的 18 章独立参考文档，归档于 AI Native 工作流节点下。
 
 ---
 
@@ -873,6 +888,11 @@ GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md
 | SKILL.md | `~/.hermes-feishu/skills/productivity/answer/SKILL.md` | 主技能文件（本文件） |
 | domain-mapping.md | `references/domain-mapping.md` | 6 领域 × 7 阶段完整追问清单和模板变体 |
 | readme-design-paradigm.md | `references/readme-design-paradigm.md` | README 设计范式：designer-skills 6 层结构（Hero→问题→Flow→原则→细节→收尾） |
-| README.md | GitHub 仓库首页 | 项目介绍、设计初衷、快速开始 |
+| dingtalk-deap.md | `references/dingtalk-deap.md` | 钉钉DEAP企业AI平台模块矩阵与费用参考 |
+| skill-audit-pattern.md | `references/skill-audit-pattern.md` | 技能审计模式：用 answer 逆向审计已有技能/方案的 4 步流程 |
+| training-proposal-template.md | `references/training-proposal-template.md` | 培训/工作坊方案模板：6章+附录结构，场景筛选→课程设计→担忧回应→映射表（企业AI部署/DEAP工作坊类） |
+| internal-onboarding-training.md | `references/internal-onboarding-training.md` | 内部工具上手培训模式：三层目标框架+手机端实操+逐字稿内容规范（与上一条是两种培训类型） |
+| lark-cli-v2-quickref.md | `references/lark-cli-v2-quickref.md` | lark-cli v2 API 命令速查：创建/写入/删除/验证 Wiki 文档的正确 flags |
+| marketing-funnel-template.md | `references/marketing-funnel-template.md` | 运营营销方案漏斗数学模板：GMV反推、渠道矩阵、内容复用流、私域承接时间线、预算分配参考 |
 | CHANGELOG.md | GitHub 仓库 | 版本变更记录（v1.0 → v1.1.1） |
 | LICENSE | GitHub 仓库 | MIT 开源许可 |
