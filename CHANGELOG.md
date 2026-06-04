@@ -4,6 +4,27 @@ All notable changes to the answer skill.
 
 ---
 
+## [v1.5.0] — 2026-06-05
+
+### 🧠 BMAD 方法论吸收 — Phase 7 增强审查层
+
+借鉴 BMAD-METHOD 的 Advanced Elicitation 和 Editorial Review 方法论，在 Phase 7 Review 中增加两层可选质量门禁：
+
+| # | 增强项 | 吸收位置 | 来源 |
+|---|--------|---------|------|
+| 1 | **Advanced Elicitation 深度审视** | Phase 7.2b | 69种追问方法（Pre-mortem/First Principles/Red Team等） |
+| 2 | **Editorial Review 文案门禁** | Phase 7.2c | 微软基线 × 三列表格审查，与 zhike-content-output 规范闭环 |
+
+### 🔗 联动技能
+
+- `advanced-elicitation` — 新增独立技能，可被 Phase 7 调用
+- `editorial-review-prose` — 新增独立技能，可被 Phase 7 调用
+- `editorial-review-structure` — 新增独立技能，可被 Phase 3 调用
+- `edge-case-hunter` — 新增独立技能
+- metadata.related_skills 更新
+
+---
+
 ## [v1.4.0] — 2026-06-05
 
 ### 🧠 execplan 方法论吸收 — 9 项能力增强

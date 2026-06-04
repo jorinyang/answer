@@ -1,8 +1,12 @@
 ---
 name: answer
 description: AI Native'S Workflow(er) — 7 阶段结构化工作流编排器。适用于任何从零开始的复杂构建任务：新业务/新产品/新技能/新方案/新流程/新系统/调研分析/策略规划/项目启动/决策支持/汇报演示/预算规划/复盘总结/运营营销/品牌策划/架构设计/迭代优化。以 design-flow 编排范式为核心，串联 clarify → brief → architect → standards → decompose → build → review。触发：answer / 梳理思路 / 从零开始 / 帮我规划 / 设计方案 / 启动项目 / 拆解问题 / 写方案 / 做BP / SOP / 做复盘 / 运营方案 / 营销计划 / from scratch / plan this 等 100+ 关键词。
-version: 1.1.1
+version: 1.5.0
 author: 杨瑒 (月夜)
+metadata:
+  hermes:
+    tags: [workflow, design-flow, builder, orchestrator]
+    related_skills: [advanced-elicitation, editorial-review-prose, editorial-review-structure, blue-team, huashu-design, feishu-html, feishu-doc, trip-landing]
 triggers:
   # 显式调用
   - "answer"
@@ -724,6 +728,33 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 - 本质还原：核心价值主张是什么？
 - 死亡假设：如果失败，最可能的死因？
 - 苏格拉底追问：未被验证的前提假设？
+
+#### 7.2b 深度审视（Advanced Elicitation — 可选增强层）
+
+> 🆕 调用 `advanced-elicitation` 技能对产出做多视角审视。
+
+对 Review 中发现的 Must Fix / Should Fix 项，建议运行 2-3 种方法做深度审视：
+
+```
+加载 advanced-elicitation，对 Review 中的关键发现运行：
+- 方案/决策类 → Pre-mortem + First Principles + Inversion
+- 代码/技术类 → Boundary Sweep + 5 Whys + Red Team
+- 文案/内容类 → Critique & Refine + Socratic + Steelmanning
+```
+
+AE 不会自动运行——Phase 7 结束后提示用户"是否需要对关键发现运行深度审视？"
+
+#### 7.2c 文案质量门禁（Editorial Review — 可选增强层）
+
+> 🆕 调用 `editorial-review-prose` 技能对产出文案做临床级审查。
+
+如果最终交付物包含面向客户的文案：
+
+```
+加载 editorial-review-prose（如需贵州之客铁律，同时加载 zhike-content-output 作为 style_guide）
+→ 三列表格审查（原文/修订/变更理由）
+→ 用户逐条确认是否采用
+```
 
 #### 7.3 可视化验证（如产出是 HTML 页面）
 
