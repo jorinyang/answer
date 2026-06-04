@@ -237,6 +237,7 @@ triggers:
 3. **每阶段后**：总结产出（文件名、关键决策、开放问题），询问「进入下一阶段？」
 4. **阶段间检查**：前一阶段的输出是否影响下一阶段？（如 Brief 中的领域设定会影响 Standards 的规范模板）
 5. **可随时暂停**：用户说"够了"即停止，总结当前进度和下一步
+6. **活文档纪律**：`{answername}_工作流全记录` 是活文档（Living Document）——Phase 3 的关键架构决策、Phase 6 的意外发现和决策记录、Phase 7 的成果回顾，都必须持续更新到文档中。进度、决策、发现全在一处，确保跨会话中断后可从文档恢复。
 
 ### 产出目录
 
@@ -385,9 +386,20 @@ lark-cli docs +fetch --api-version v2 --doc {document_id} --as bot
 - 合规/品牌：{必须遵守的规范}
 
 ## 成功标准
-- {可量化的 KPI 1}
-- {可量化的 KPI 2}
-- {主观验收标准}
+
+每条标准必须是可观测的、人类可验证的。格式：「条件 → 操作 → 预期结果」
+
+- **SC-1**：{描述}。验证方法：{具体操作}，预期结果：{可观测输出}
+- **SC-2**：{描述}。验证方法：{具体操作}，预期结果：{可观测输出}
+
+> **示例（方案类）**：
+> - **SC-1**：方案逻辑无断层。验证方法：蓝军审查 Phase 2 死亡假设全部有应对，预期结果：蓝军报告无 Must Fix
+> - **SC-2**：交付物可在 10 分钟内被目标受众理解。验证方法：找 1 名未参与项目的人阅读后复述核心观点，预期结果：复述准确率 ≥ 80%
+>
+> **示例（技能类）**：
+> - **SC-1**：技能可从空状态触发。验证方法：在干净 Hermes 环境中说「触发词」，预期结果：Hermes 加载该技能并开始执行 Phase 1
+
+> 此格式借鉴 execplan 的 Observable Outcomes 方法论——验收标准必须是人类可感知的行为，而非内部属性。
 
 ## 已有资产
 {可以复用的技能、文档、代码、数据}
@@ -460,9 +472,31 @@ lark-cli docs +fetch --api-version v2 --doc {document_id} --as bot
 
 ## 增长适配
 {哪些部分会随时间扩展？如何处理？（分类/分页/归档）}
+
+## 接口规格（技术类项目时使用）
+
+> 借鉴 execplan 的 Interface Specs 方法论——对技术类项目显式定义模块接口。
+
+| 模块 | 输入 | 输出 | 依赖 |
+|------|------|------|------|
+| {模块A} | {类型 / 格式 / 示例} | {类型 / 格式 / 示例} | {外部服务的 API 版本 / 认证方式} |
+| {模块B} | {类型} | {类型} | — |
+
+### {模块名} 错误处理
+- 失败时回退行为：{描述}。
 ```
 
 **注意**：如果产出是单一文件/简单结构（如单篇方案文档），此阶段可快速通过——仅需确认内容大纲和层级（创建一个简化的 ARCHITECTURE 文档，只包含「结构总览」和「信息层级」两节，跳过模块关系和增长适配）。
+
+### Architect 视觉增强（精装修模式）
+
+当用户对 Phase 3 结构表达"看上去不够丰富"时，在不增加内容的条件下添加视觉层：
+
+1. **ASCII 架构全景图** — 用框图展示 Days × Modules 嵌套关系，标注子模块核心动作
+2. **三层能力映射表** — 认知层/操作层/创造层，每层标注覆盖模块和学员获得
+3. **时间配比** — Day 1/Day 2 实操/讲解/茶歇百分比分布
+
+原则：**内容一个不改，穿上视觉外衣**。不改变 Brief/Standards 中定义的任何设计决策。
 
 **过渡语**："架构已定义。下面建立标准和规范——复用模式、命名约定、质量基线。加载 domain-mapping 获取领域特定的规范模板。继续？"
 
@@ -547,6 +581,12 @@ lark-cli docs +fetch --api-version v2 --doc {document_id} --as bot
 Generated from: BRIEF_{answername}.md
 Date: {date}
 
+## Spike（可行性验证）
+
+> 借鉴 execplan 的 Prototyping Milestones 方法论——先验证关键假设，再投入完整构建。
+
+- [ ] **{尖刺任务名}**: {要验证的假设}。_{通过标准：{可观测结果}}。_{若通过 → 进入 Core Task N；若不通过 → 记录到决策日志}。_
+
 ## Foundation（基础）
 - [ ] **{任务名}**: {一句话描述什么是"完成"}。_{状态：新建 / 复用 / 修改}。_
 
@@ -574,7 +614,11 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 
 **过渡语**："任务已拆解。下面按顺序逐步构建。是否现在开始构建？"
 
-🔴 **CHECKPOINT**：确认任务清单完整（Foundation + Core + Polish 三组齐全）、每个任务是垂直切片，再进入 Build。Build 阶段不可逆——开始后按任务顺序执行，不跳回重排。
+🔴 **CHECKPOINT**：
+1. 任务清单完整（Spike + Foundation + Core + Polish 四组齐全） ✓
+2. 每个任务是垂直切片（含内容+验证） ✓
+3. **自包含检查**：随机抽取 1 个任务，假设自己是"从没见过这个项目的人"——只看该任务的描述和上下文，能否独立完成？如果不能，缺少什么信息？ ✗
+4. 确认后进入 Build。Build 阶段不可逆——开始后按任务顺序执行，不跳回重排。
 
 ---
 
@@ -599,11 +643,19 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 
 ## Task 1: {任务名}
 - 状态：✅ 完成
+- 时间：{开始时间} ~ {结束时间} (UTC+8)，耗时约 {分钟} min
 - 产出：{链接/文件路径}
 - 调用的技能/工具：{skill_manage / feishu-doc / feishu-html / ...}
 - 参数：{关键参数摘要}
 - 验证结果：{通过/失败 + 详情}
-- 备注：{遇到的问题 + 解决方案}
+
+### 💡 意外发现（如有）
+- {实施中发现的非预期行为 / 工具坑 / 边界情况}。_{证据：{复现步骤或输出摘要}}。_
+
+### 🔄 决策记录（如有）
+- 决策：{中途改了什么}
+- 理由：{为什么}
+- 替代方案：{曾考虑但放弃的选项 + 放弃原因}
 
 ## Task 2: {任务名}
 ...
@@ -615,6 +667,32 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 - 需要画架构图 → 调用 `architecture-diagram`
 - 需要做行程页 → 调用 `trip-landing`
 - 需要创建技能 → 调用 `skill_manage`
+
+### 幂等性要求
+
+> 借鉴 execplan 的 Idempotence 方法论——步骤可安全重复执行，不产生副作用。
+
+- 创建类操作：先检查是否已存在，已存在则跳过（不覆盖）
+- 写入类操作：使用 overwrite 模式（重复执行结果一致）
+- 部署类操作：重复部署不产生重复资源（OSS 同名文件覆盖）
+- 如果某步骤不可幂等（如发送通知），在 BUILD_LOG 中显式标注 ⚠️ 非幂等
+
+### 全局决策日志
+
+> 借鉴 execplan 的 Decision Log 方法论——贯穿 Phase 3 和 Phase 6，记录所有关键决策。
+
+在工作流记录文档末尾维护「## 决策日志」章节：
+
+```markdown
+## 决策日志
+
+### D-001: {决策标题}
+- 阶段：Phase {3 Architect / 6 Build}
+- 决策：{选择了什么方案}
+- 理由：{为什么选这个}
+- 替代方案：{曾考虑的选项 + 放弃原因}
+- 日期/作者：{YYYY-MM-DD} / {作者}
+```
 
 **过渡语**："构建完成。现在运行审查——对照简报逐项检查质量。继续？"
 
@@ -685,6 +763,31 @@ Date: {date}
 
 ## 总体评分
 {score}/100 — {一句话总结}
+
+## 成果与回顾 (Outcomes & Retrospective)
+
+> 借鉴 execplan 的 Outcomes & Retrospective 方法论——对照 Brief 的成功标准，总结实际达成。
+
+### 对照 Brief 成功标准
+
+| Brief 中的成功标准 | 实际达成 | 差距 |
+|-------------------|---------|------|
+| {SC-1} | {实际结果} | {✅ 达标 / ⚠️ 部分 / ❌ 未达成} |
+| {SC-2} | {实际结果} | ... |
+
+### 未达成的目标（如有）
+
+- **{目标}**：未达成原因 → {原因}，建议：{后续行动}
+
+### 经验教训
+
+1. **{关键学习}**：{描述} — {对未来项目的启示}
+2. **{改进建议}**：{描述}
+
+### 可复用资产
+
+- 决策日志中的关键决策（D-001, D-002...）
+- 意外发现中可跨项目复用的发现（S-001...）
 ```
 
 ---
@@ -747,7 +850,11 @@ Date: {date}
 | 10 | **每个阶段单独创建飞书文档** | 用户明确偏好合并输出，拆散文档增加管理负担。Phase 1-5 应合并为单一工作流记录文档 | 默认合并：`{answername}_工作流全记录`。Phase 1-5 为章节，Phase 6 产出独立交付物文档，Phase 7 Review 追加到工作流记录末尾 |
 | 11 | **用 `wiki +node-delete --obj-type docx` 删 Wiki 节点** | Wiki 节点的 obj_type 是 `wiki` 而非 `docx`。用错会报 131005 not found | 使用 `lark-cli wiki +node-delete --node-token TOKEN --obj-type wiki --yes --as bot`
 | 12 | **创建文档后不验证 title** | 飞书 API 偶发静默回退 title 为 "Untitled"——创建返回成功但文档名是默认值 | 创建后立即 `lark-cli api GET /open-apis/wiki/v2/spaces/get_node` 检查 `title != "Untitled"` |
-| 13 | **培训文档写成了给讲师的元注释而非逐字稿** | 用户纠正"内容规范应当是讲师面对学员要表达的内容"。Agent 在 Standards 中写"讲师视角""一句话核心——讲师用"等元注释方向，但应该直接写出讲师对学员要说的话，不是给讲师看的备注。用户一眼发现方向错误 | 培训/授课类文档的 Standards 内容规范必须声明"面向学员的逐字稿，不是给讲师的备注"。判断标准：文档中的每一句话，讲师能否直接念给学员听？不能念的=不该写。结构骨架可以有控制标记（⏱/🖐️），但正文内容必须是可念出口的话 |
+| 14 | **培训文档写成了给讲师的元注释而非逐字稿** | 用户纠正"内容规范应当是讲师面对学员要表达的内容"。Agent 在 Standards 中写"讲师视角""一句话核心——讲师用"等元注释方向，但应该直接写出讲师对学员要说的话，不是给讲师看的备注。用户一眼发现方向错误 | 培训/授课类文档的 Standards 内容规范必须声明"面向学员的逐字稿，不是给讲师的备注"。判断标准：文档中的每一句话，讲师能否直接念给学员听？不能念的=不该写。结构骨架可以有控制标记（⏱/🖐️），但正文内容必须是可念出口的话 |
+| 15 | **SVG 架构图转 PNG 嵌入飞书文档时中文变方框** | cairosvg 在 Linux 服务器端渲染 SVG 为 PNG 时，PingFang SC / HarmonyOS Sans SC 字体不可用，所有中文字符渲染为空心方框 □。用户看到的架构图全是方框和 X | (1) SVG 中 font-family 必须使用 Linux 系统可用的中文字体：`"Noto Sans SC", "SimSun", sans-serif`。(2) SVG 中禁止使用 emoji（🏗️🔭🔴🟠🔵 等），cairosvg 无法渲染 emoji 字形，会变成方框或 X。使用 HTML 实体替代：▶ `&#9654;`、→ `&#8594;`、◆ `&#9670;`。(3) 生成 PNG 后必须用 vision 工具验证中文正常显示再嵌入飞书 |
+| 16 | **飞书文档覆盖写入后架构图丢失** | `docs +update --command overwrite` 会清空文档所有 block 并重新写入，之前通过 `+media-insert` 插入的图片块被一并清除。用户发现架构图不见了 | 每次 overwrite 后必须重新插入图片：`docs +media-insert --doc ID --file ./image.png --type image --width 1920 --align center --selection-with-ellipsis "文档开头...唯一文本" --before --as bot`。注意 `+media-insert` 要求相对路径，必须先 cd 到图片所在目录 |
+| 17 | **飞书图片块替换用 `+media-upload` 不生效** | `docs +media-upload` 只上传文件到飞书存储并返回 file_token，但不会将新 token 绑定到已有的图片块上。文档中显示的仍是旧图片 | 正确做法：先 `docs +media-upload` 获取新 file_token，然后用 `lark-cli api PATCH "/open-apis/docx/v1/documents/{doc_id}/blocks/{block_id}" --data '{"replace_image":{"token":"新token"}}' --as bot` 直接替换图片块中的 token |
+| 14 | **用完整培训提案模板（training-proposal-template.md）套轻量大纲需求** | 用户只想要课程日程表，Agent 却加载了含报价/场景诊断/公司介绍的 6 章模板，产出冗余章节。用户说"保持模板结构"指的是 .docx 的物理结构，不是让你加预算页 | 先判断文档类型：含报价+商务论证 → 用 `training-proposal-template.md`；纯课程内容不含商务 → 用 `training-outline-lite.md`。不确定时问用户"这份文档需要包含预算/报价吗？" |
 
 ### 错误处理
 
@@ -891,8 +998,11 @@ GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md
 | dingtalk-deap.md | `references/dingtalk-deap.md` | 钉钉DEAP企业AI平台模块矩阵与费用参考 |
 | skill-audit-pattern.md | `references/skill-audit-pattern.md` | 技能审计模式：用 answer 逆向审计已有技能/方案的 4 步流程 |
 | training-proposal-template.md | `references/training-proposal-template.md` | 培训/工作坊方案模板：6章+附录结构，场景筛选→课程设计→担忧回应→映射表（企业AI部署/DEAP工作坊类） |
+| training-outline-lite.md | `references/training-outline-lite.md` | 轻量培训大纲模板：纯课程内容，不含报价/场景诊断/公司介绍（已有合作关系、仅需课程设计的场景） |
 | internal-onboarding-training.md | `references/internal-onboarding-training.md` | 内部工具上手培训模式：三层目标框架+手机端实操+逐字稿内容规范（与上一条是两种培训类型） |
-| lark-cli-v2-quickref.md | `references/lark-cli-v2-quickref.md` | lark-cli v2 API 命令速查：创建/写入/删除/验证 Wiki 文档的正确 flags |
+| `pricing-estimation.md` | `references/pricing-estimation.md` | 软件功能报价方法论：Fibonacci+RICE 双因子定价，双 Sheet Excel 输出 |
+| `distribution.md` | `references/distribution.md` | 分发包指南：tar.gz 打包、目标安装、GitHub Token 推送陷阱 |
+| `lark-cli-v2-quickref.md` | `references/lark-cli-v2-quickref.md` | lark-cli v2 API 命令速查：创建/写入/删除/验证 Wiki 文档的正确 flags |
 | marketing-funnel-template.md | `references/marketing-funnel-template.md` | 运营营销方案漏斗数学模板：GMV反推、渠道矩阵、内容复用流、私域承接时间线、预算分配参考 |
 | CHANGELOG.md | GitHub 仓库 | 版本变更记录（v1.0 → v1.1.1） |
 | LICENSE | GitHub 仓库 | MIT 开源许可 |
