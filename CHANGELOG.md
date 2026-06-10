@@ -4,17 +4,37 @@ All notable changes to the answer skill.
 
 ---
 
+## [v1.5.1] — 2026-06-11
+
+### ⚡ 跳过场景
+
+- 小型 Web SPA / 单文件前端 —— 产出 ≤ 1 HTML + 纯前端 → 跳过 answer，用 feishu-html + writing-plans
+- 简单 CRUD 工具 —— 数据模型 ≤ 3 实体 + 无服务端 → 跳过 answer
+
+### 🛡️ 反模式补丁
+
+| # | 反模式 | 修复 |
+|---|--------|------|
+| 1a | 跳过 answer 直接 Build | 完成材料收集 + Clarify 决策树前禁止构建 |
+| 18 | 修改 xlsx/docx 不校验 | 修改后验证行数/金额/关键词 |
+| 18a | python-docx 固定索引 | 用 find_para(keyword) 定位，不依赖索引 |
+| 18b | 本地文件误创建飞书文档 | 确认文件位置，本地编辑 vs 飞书创建 |
+
+### 📚 新增参考文件
+
+- `references/prd-writing-pattern.md` — PRD撰写模式
+- `references/b2b-system-proposal.md` — B2B系统建设提案模式
+- `references/svg-to-png-playwright.md` — WSL下SVG转PNG
+- `references/distribution.md` — 分发模式
+- `references/training-outline-lite.md` — 培训大纲精简版
+
+### 🔗 链接更新
+
+- 新增 awesome-skills 仓库引用
+
+---
+
 ## [v1.5.0] — 2026-06-05
-
-### 🧠 BMAD 方法论吸收 — Phase 7 增强审查层
-
-借鉴 BMAD-METHOD 的 Advanced Elicitation 和 Editorial Review 方法论，在 Phase 7 Review 中增加两层可选质量门禁：
-
-| # | 增强项 | 吸收位置 | 来源 |
-|---|--------|---------|------|
-| 1 | **Advanced Elicitation 深度审视** | Phase 7.2b | 69种追问方法（Pre-mortem/First Principles/Red Team等） |
-| 2 | **Editorial Review 文案门禁** | Phase 7.2c | 微软基线 × 三列表格审查，与 zhike-content-output 规范闭环 |
-
 ### 🔗 联动技能
 
 - `advanced-elicitation` — 新增独立技能，可被 Phase 7 调用
