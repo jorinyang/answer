@@ -1,12 +1,12 @@
 ---
 name: answer
 description: AI Native'S Workflow(er) — 7 阶段结构化工作流编排器。适用于任何从零开始的复杂构建任务：新业务/新产品/新技能/新方案/新流程/新系统/调研分析/策略规划/项目启动/决策支持/汇报演示/预算规划/复盘总结/运营营销/品牌策划/架构设计/迭代优化。以 design-flow 编排范式为核心，串联 clarify → brief → architect → standards → decompose → build → review。触发：answer / 梳理思路 / 从零开始 / 帮我规划 / 设计方案 / 启动项目 / 拆解问题 / 写方案 / 做BP / SOP / 做复盘 / 运营方案 / 营销计划 / from scratch / plan this 等 100+ 关键词。
-version: 1.5.0
+version: 1.6.0
 author: 杨瑒 (月夜)
 metadata:
   hermes:
     tags: [workflow, design-flow, builder, orchestrator]
-    related_skills: [advanced-elicitation, editorial-review-prose, editorial-review-structure, blue-team, huashu-design, feishu-html, feishu-doc, trip-landing]
+    related_skills: [advanced-elicitation, editorial-review-prose, editorial-review-structure, blue-team, huashu-design, feishu-html, feishu-doc, trip-landing, pm-prioritization-frameworks, stakeholder-mapping, opportunity-solution-tree]
 triggers:
   # 显式调用
   - "answer"
@@ -161,6 +161,87 @@ triggers:
 
 ## 触发条件
 
+### 通用领域触发矩阵
+
+7阶段工作流覆盖9大业务领域，45个子场景。
+
+#### AI / 技术产品
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| AI产品从零构建 | 用户要从零搭建AI产品 | "answer: 做一个AI客服产品" |
+| Agent系统设计 | 用户需要设计Multi-Agent系统 | "从零开始设计一个Agent编排系统" |
+| RAG系统搭建 | 用户需要搭建RAG系统 | "从零规划一个企业RAG知识库" |
+| 模型选型决策 | 用户需要系统化模型选型 | "梳理一下我们应该用哪个模型" |
+| AI应用商业化 | 用户需要AI产品的商业化方案 | "梳理一下这个AI工具的变现路径" |
+
+#### 数字产品 / SaaS
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| SaaS产品启动 | 用户要启动SaaS产品 | "从零开始做一个SaaS工具" |
+| 产品功能规划 | 用户需要系统化功能规划 | "梳理这个产品的MVP和roadmap" |
+| 技术架构决策 | 用户需要架构方案设计 | "design this: 技术栈选型和架构方案" |
+| 用户增长方案 | 用户需要系统化增长策略 | "answer: 用户增长策略" |
+| 定价模式设计 | 用户需要定价方案设计 | "梳理一下这个SaaS的定价模式" |
+
+#### 业务流程 / 运营
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| SOP流程设计 | 用户需要设计操作流程 | "设计一个客服SOP流程" |
+| 运营方案策划 | 用户需要运营策划案 | "做一个暑期营销运营方案" |
+| 数字化转型 | 用户需要数字化转型方案 | "梳理一下传统企业数字化转型路径" |
+| 组织架构设计 | 用户需要组织架构方案 | "设计这个团队的OKR和架构" |
+| 项目管理方案 | 用户需要项目管理系统 | "梳理一下多项目管理流程" |
+
+#### 市场营销 / 品牌
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 营销方案策划 | 用户需要营销策划案 | "做一个新产品上市营销方案" |
+| 品牌策略规划 | 用户需要品牌策略 | "从零梳理这个品牌的定位和策略" |
+| 内容营销体系 | 用户需要内容营销规划 | "梳理一下内容营销的选题和分发" |
+| 社交媒体策略 | 用户需要社媒运营方案 | "answer: 社交媒体运营策略" |
+| 活动策划 | 用户需要活动方案 | "设计一个线上发布会活动方案" |
+
+#### 商业策略 / 创业
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 商业模式设计 | 用户需要商业模式设计 | "梳理这个项目的商业模式" |
+| 商业计划书 | 用户需要BP | "写一个BP" |
+| 市场进入策略 | 用户需要市场进入方案 | "梳理一下进入这个市场的策略" |
+| 竞品分析 | 用户需要系统化竞品分析 | "answer: 竞品深度分析" |
+| 融资方案 | 用户需要融资规划 | "梳理一下A轮融资方案" |
+
+#### 技能/工具创建
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| Skill创建 | 用户需要创建Hermes技能 | "创建一个skill" |
+| 工具开发 | 用户需要开发新工具 | "从零做一个自动化脚本工具" |
+| 工作流设计 | 用户需要设计自动化工作流 | "设计一个文档自动生成工作流" |
+| 集成方案 | 用户需要系统集成方案 | "梳理一下飞书+GitHub集成方案" |
+
+#### 调研分析
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 行业调研 | 用户需要系统化行业分析 | "梳理一下这个行业的竞争格局" |
+| 用户研究 | 用户需要用户研究方案 | "从零规划用户访谈和调研" |
+| 可行性分析 | 用户需要可行性研究 | "这个项目能不能做，梳理一下" |
+| 技术调研 | 用户需要技术调研方案 | "梳理一下微服务vs单体的选型" |
+
+#### 复盘/汇报
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 项目复盘 | 用户需要系统化复盘 | "做一个项目复盘" |
+| 年度总结 | 用户需要年度总结 | "写一个年度总结报告" |
+| 投资人汇报 | 用户需要投资人更新 | "做一个investor update" |
+| 绩效回顾 | 用户需要绩效回顾方案 | "梳理一下团队的OKR回顾" |
+
+#### 内容/创作
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 内容策略 | 用户需要内容策略规划 | "梳理一下这个账号的内容策略" |
+| 课程设计 | 用户需要课程体系设计 | "设计一个AI入门课程大纲" |
+| 知识库搭建 | 用户需要知识库规划 | "梳理一下团队知识库的结构" |
+| 视频系列 | 用户需要视频内容规划 | "规划一个技术视频系列" |
+
 ### 自动触发场景（按置信度分层）
 
 **Tier 1 — 显式调用（100% 触发）**：
@@ -197,8 +278,6 @@ triggers:
 - 已有明确答案的问题（"这段代码哪里错了"）
 - 简单操作（"帮我发个消息"、"打开XX文件"）
 - 已有成熟方案的重复性任务（"按上次的流程再做一次"）
-- **小型 Web SPA / 单文件前端应用**（"做个投票页面"、"做个话题提交工具"）—— 产出物单一（1个HTML）、无多模块架构需求、无方案论证需求。用 `feishu-html` + `writing-plans` 直接构建部署，走 answer 会把 1 小时的事拖成半天。判断标准：产出 ≤ 1 个 HTML 文件 + 纯前端 + 数据量小 → 跳过 answer
-- **简单 CRUD 工具**（localStorage 级数据、无后端、无认证）—— 功能边界清晰、无架构争议点。判断标准：数据模型 ≤ 3 个实体 + 无服务端 + 无复杂状态流转 → 跳过 answer
 
 ### 领域自动识别（扩展版）
 
@@ -385,6 +464,29 @@ lark-cli docs +fetch --api-version v2 --doc {document_id} --as bot
 1. **{原则名}** — {实践中的含义，应解决一个张力}
 2. ...
 3. ...
+
+## 价值主张（JTBD 6-part — 数字产品/服务类项目必填）
+
+> 🆕 借鉴 pm-skills `value-proposition`——用 JTBD 框架定义价值主张，替代空泛的「我们提供XX」。
+
+对每个目标用户群：
+
+| 维度 | 说明 | 示例 |
+|------|------|------|
+| **Who（谁）** | 目标用户的具体画像 | 「中型企业 IT 经理，每天处理 50+ 审批」 |
+| **Why（为什么）** | 他们的痛点/未满足需求 | 「现有工具审批慢、追溯难、跨部门协调靠微信」 |
+| **What before（现状）** | 他们现在怎么做的 | 「Excel + 微信 + 邮件三件套，平均每单 3 天」 |
+| **How（我们怎么做）** | 我们的解决方式 | 「一站式审批：自动路由 + 移动端秒批 + 全程留痕」 |
+| **What after（改善后）** | 使用后的改善结果 | 「审批时间从 3 天 → 2 小时，合规审计秒级响应」 |
+| **Alternatives（替代方案）** | 他们现在用什么替代 | 「钉钉审批（但缺乏定制化）、自研系统（维护成本高）」 |
+
+## 产品战略画布（数字产品/SaaS/AI方案类可选）
+
+> 🆕 如果产出是数字产品/SaaS/AI 产品的战略方案，可用 9-section Product Strategy Canvas 替代或补充上面的通用 Brief 模板。
+> 
+> 9-section: Vision → Market Segments → Relative Costs → Value Propositions → Trade-offs → Key Metrics → Growth → Capabilities → Can't/Won't (Defensibility)
+> 
+> 详见 `references/product-strategy-canvas.md`。
 
 ## 领域约束
 - 平台/环境：{已有技能、工具、平台限制}
@@ -706,7 +808,7 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 
 ### Phase 7: Review（质量审查）
 
-**来源**：design-review（对照性审查）+ blue-team（压力测试）
+**来源**：design-review（对照性审查）+ blue-team（压力测试）+ strategy-red-team（红队攻击）+ pre-mortem（风险分级）
 
 **目标**：对照 Brief 和 Standards，检查所有产出物的质量，暴露逻辑断层和实现偏差。
 
@@ -730,6 +832,77 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 - 本质还原：核心价值主张是什么？
 - 死亡假设：如果失败，最可能的死因？
 - 苏格拉底追问：未被验证的前提假设？
+
+#### 7.2a 红队攻击（strategy-red-team 方法论 — 战略级方案必用）
+
+> 🆕 借鉴 pm-skills `strategy-red-team` —— 攻击 Load-bearing Assumptions，不是泛泛的风险列表。
+
+适用于：战略方案、PRD、商业计划书、架构决策等**关键决策**文档。对日常方案（活动策划、简单流程 SOP）可选。
+
+**红队审查规则**（与 blue-team 的差异化定位）：
+
+| 维度 | blue-team | strategy-red-team |
+|------|-----------|-------------------|
+| **审查对象** | 方案整体逻辑 | **Load-bearing Assumptions**（承受性假设） |
+| **方法** | 死亡假设 + 苏格拉底追问 | **Steelman-then-Attack**（先建钢人再攻击） |
+| **输出** | 问题分级（Must/Should/Could Fix） | **Fail-if + Cheapest Test + Kill Criterion** |
+| **目标** | 提升方案质量 | **防止自信地押错注**——找到最便宜的证据来验证或推翻核心假设 |
+
+**红队流程**：
+
+1. **提取每个 claim**：列出方案断言为真的每件事——关于用户、市场、约束、机制、时间线。区分 **Load-bearing claims**（如果假，方案崩溃）和装饰性 claims。只攻击 Load-bearing 的。
+
+2. **Steelman, then Attack**：对每个 Load-bearing claim，先陈述它为真的最强版本，然后攻击那个版本——不是稻草人。攻击弱版本毫无价值。
+
+3. **每个失效模式写成「Fails if ___」**：具体、可证伪。「Fails if 激活率不是真正的瓶颈」优于「执行风险」。
+
+4. **按 (Impact if wrong) × (Likelihood wrong) × (Cheapness to test) 排序**：列表顶部是本周就该测的——高影响、可能出错、测试便宜。
+
+5. **自我反驳，不编造**：默认「这个风险是真的」，除非方案已引用证据反驳。但如果一个 claim 确实有理有据，直接说——红队编造疑虑和橡皮图章一样没用。
+
+6. **每个存活下来的 kill-assumption 给三个动作**：
+   - **Fails if**：精确地，什么条件会让方案崩溃
+   - **Evidence to get this week**：本周能拿到的具体数据/查询/对话
+   - **Kill criterion**：到什么阈值你该停下来或改变方向
+   - **Cheapest test**：最小的验证实验
+
+**红队输出模板**：
+
+```
+## 红队审查: {方案名}
+
+### Top Kill-Assumptions（按测试便宜度排序，最多5条）
+对每条：
+- **Claim**: {承受性断言}
+- **Fails if**: {具体、可证伪的崩溃条件}
+- **Evidence to get this week**: {具体数据来源}
+- **Kill criterion**: {停止/转向阈值}
+- **Cheapest test**: {最小验证实验}
+
+### 什么站得住脚
+{明确说哪些部分理由充分——不编造疑虑}
+
+### 无法评估的部分
+{方案未给出足够信息的盲区}
+```
+
+**红队纪律**：
+- 不稻草人——攻击钢人或别攻击。
+- 不泛化风险列表——每一条都针对**这个**方案。
+- 不编造——如果站得住，就说站得住。
+- 无情排序——最便宜的、影响最大的测试才是整个红队的意义。
+
+#### 7.2b 死亡假设风险分级（pre-mortem Tiger 分级）
+
+> 🆕 对 blue-team 的死亡假设增加 Tigers / Paper Tigers / Elephants 三级分类。
+
+| 级别 | 含义 | 应对 |
+|------|------|------|
+| **🐯 Tiger** | 高概率 + 高影响 = 真老虎。必须直接应对。 | 缓解方案 + 监控指标 |
+| **📄 Paper Tiger** | 看起来吓人但经不起推敲 = 纸老虎。深入分析后发现没那么危险。 | 记录理由，不投入资源 |
+| **🐘 Elephant** | 低概率 + 高影响 = 房间里的大象。大家都知道但没人提。 | 明确承认 + if-then 预案 |
+
+**使用方式**：在 blue-team 审查完成后，将每个死亡假设标注 Tiger/Paper Tiger/Elephant 级别。Tiger 项写入 Must Fix，Elephant 写入 Should Fix 并附 if-then 预案。Paper Tiger 记录在「什么站得住脚」中。
 
 #### 7.2b 深度审视（Advanced Elicitation — 可选增强层）
 
@@ -793,6 +966,9 @@ Date: {date}
 
 ## 蓝军审查摘要
 {调用 blue-team 的结果摘要或完整嵌入}
+
+## 红队审查摘要（战略级方案）
+{如有运行 7.2a 红队攻击，嵌入 Top Kill-Assumptions + Cheapest Test}
 
 ## 总体评分
 {score}/100 — {一句话总结}
@@ -858,15 +1034,11 @@ Date: {date}
 |---|------|------|---------|
 | 0 | **用两步法创建文档（Wiki API 建节点 + v2 update 写内容）** | 返回 `ok:true` revision_id 递增但 blocks=0，文档永远为空。lark-cli v1.0.40–v1.0.44 均存在此 bug | 必须用一步法：`docs +create --api-version v2 --doc-format markdown --title \"标题\" --content @file.md --parent-token TOKEN --as bot`。详见 feishu-doc 技能「两步法陷阱」 |
 | 1 | 跳过 Clarify 直接写 Brief | 后续阶段基于未验证假设 | 至少确认 3 个核心假设 |
-| 1a | **跳过全部 answer 工作流，直接 Build**：用户提供了流程图、角色表、详细需求描述，Agent 认为"需求足够清晰"而跳过 7 阶段交互，直接开始写代码/搭系统 | 技术平台约束（如钉钉 vs 独立 Web App）在需求描述中不可见，Agent 基于错误假设构建了完全不对的交付物。用户会纠正"你没有了解完整需求就动手" | 即使用户需求描述非常详细，也**必须**先完成材料收集（所有图片、文档、纪要逐份确认收到并解析），再走 checkpoints 流程（领域确认 → Clarify 决策树 → 用户确认后才进入下一阶段）。判断标准：在 Phase 1 Clarify 完成前，**不得调用任何构建类工具**（terminal 建表、write_file 写 HTML、deploy 等） |
 | 2 | Brief 写成功能列表 | 失去方向一致性 | 用"体验/流程"语言描述，不用"功能"语言 |
 | 3 | Architect 过于抽象 | 拆解时无法落地 | 每个模块必须有具体的内容描述 |
 | 4 | Standards 写了不用 | Build 产出与 Standards 矛盾——最典型的是 Standards 写"以内容需求为准"但 Build 产出写了具体数字（如"8-45s""8-15s"），用户一眼发现。定性标准被 Build 偷换成定量捷径 | Build 每完成一个任务对照 Standards 逐条检查，尤其警惕"数值化改写"——Standards 说"以内容为准"就不能在产出里写任何时长范围 |
 | 4a | **训练/教学类文档的 Standards 写成"讲师备课用的提词器/教学备注"** | 用户会说"内容的规范应当是讲师面对学员要表达的内容"。Standards 定义了全文档的写作基调，写错则全篇语气偏离 | Standards 的「内容规范」必须写"讲师口吻，面向学员——文档=讲师张嘴就能念的逐字稿"，禁止写"此处讲师引导""讲师应在此处强调"等幕后备注。详见 `references/training-proposal-template.md` 常见陷阱第二条 |
 | 5 | Review 只挑问题不说不好的 | 团队不知道自己什么做对了 | 必须包含 "What Works Well" |
-| 18 | **修改非飞书文档（.xlsx/.docx）后不校验内容** | openpyxl 的 `delete_rows()` 在合并单元格或emoji前缀值时会静默失败或漂移行号；python-docx 的 `doc.tables[N]` 索引容易错位。修改后不校验 = 交付错误文件给客户 | Excel 修改后验证：行数变化、合计金额、关键行保留、表头样式。Word 修改后验证：所有表格的预算一致性、段落关键词无残留。详见 `references/b2b-system-proposal.md` 文档编辑陷阱 |
-| 18a | **python-docx 用固定索引 `doc.paragraphs[N]` 定位段落** | 任何插入操作后所有索引偏移，后续基于旧索引的修改会写到错误段落甚至清空正确内容。多轮 `terminal` 累加修改导致问题逐轮放大 | 用 `find_para(doc, keyword)` 按文本关键词定位，不依赖固定索引。从 `.bak` 备份开始，所有修改在单次脚本中完成。详见 `references/b2b-system-proposal.md`「Word 安全编辑模式」 |
-| 18b | **用户说"修改本地电脑中的word+excel"时创建飞书文档** | 用户明确指定本地文件路径时，应编辑本地文件而非创建飞书在线文档。两者是不同的交付路径 | 先确认文件位置（`/tmp/work_order_spa/`等），直接操作 `python-docx`/`openpyxl` 修改本地文件。飞书文档仅在用户要求"创建飞书文档"或产出对象是飞书Wiki时才创建 |
 
 ### ⛔ 反例与禁止操作
 
@@ -932,7 +1104,7 @@ Date: {date}
 | Phase 6 Build 重构/优化 README 或文档 | 加载 `huashu-design` 技能，轻量注入信息层级和反 AI slop 原则（注意：README 是 markdown，不是 HTML 页面） |
 | Phase 6 Build 创建技能 | 使用 `skill_manage(action='create')` |
 | Phase 7 Review HTML 产出 | 加载 `feishu-html` 技能，使用其增强版阶段五（含 design-review 设计质量审查） |
-| Phase 7 Review 方案文档 | 加载 `blue-team` 技能，对方案逻辑进行压力测试 |
+| Phase 7 Review 方案文档 | 加载 `blue-team` 技能，对方案逻辑进行压力测试。如果方案级别为战略级（非日常流程/活动），额外运行本技能内置的 7.2a 红队攻击流程 |
 | Phase 7 Review 文档/README 产出 | 使用 answer 自身的 5 维度对照审查表（完整性/一致性/标准合规/依赖闭合/受众适配），不需要 blue-team |
 | 所有阶段 Wiki 操作 | 使用本技能内置的 Feishu API 封装；不依赖 feishu-wiki 技能（避免循环依赖） |
 
@@ -1017,9 +1189,7 @@ Phase 7 REVIEW → 对照审查 + blue-team 压力测试：
 
 ## 开源仓库
 
-GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md + domain-mapping + README + CHANGELOG，含 v1.0.0 / v1.1.0 / v1.1.1 / v1.4.0 / v1.5.0 五个 Release。
-
-> 其他精选技能收集在 **[jorinyang/awesome-skills](https://github.com/jorinyang/awesome-skills)** — 16 个 Agent Skills 的独立仓库，含本技能及 feishu/zhike/travel 全系列。
+GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md + domain-mapping + README + CHANGELOG，含 v1.0.0 / v1.1.0 / v1.1.1 三个 Release。
 
 > **非飞书环境？** 使用 `answer-standalone` 技能（v2.0.0），纯本地 markdown 输出，零外部依赖。与原版 answer 共享相同的 7 阶段方法论和 6 领域模板。
 
@@ -1040,10 +1210,6 @@ GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md
 | training-outline-lite.md | `references/training-outline-lite.md` | 轻量培训大纲模板：纯课程内容，不含报价/场景诊断/公司介绍（已有合作关系、仅需课程设计的场景） |
 | internal-onboarding-training.md | `references/internal-onboarding-training.md` | 内部工具上手培训模式：三层目标框架+手机端实操+逐字稿内容规范（与上一条是两种培训类型） |
 | `pricing-estimation.md` | `references/pricing-estimation.md` | 软件功能报价方法论：Fibonacci+RICE 双因子定价，双 Sheet Excel 输出 |
-| `prd-writing-pattern.md` | `references/prd-writing-pattern.md` | PRD撰写模式：多来源材料→缺口分析→P0/P1/P2分级→用户确认→输出可开发级PRD |
-| `b2b-system-proposal.md` | `references/b2b-system-proposal.md` | B2B系统建设提案模式：三件套交付（Excel+Word+Demo）、双路径定价、10章方案结构、文档编辑陷阱 |
-| `b2b-system-proposal.md` | `references/b2b-system-proposal.md` | B2B系统建设提案模式：三件套交付（Excel+Word+Demo）、双路径定价、10章方案结构 |
-| `svg-to-png-playwright.md` | `references/svg-to-png-playwright.md` | SVG转PNG：WSL+PEP 668 环境下用 Playwright 渲染后嵌入 python-docx |
 | `distribution.md` | `references/distribution.md` | 分发包指南：tar.gz 打包、目标安装、GitHub Token 推送陷阱 |
 | `lark-cli-v2-quickref.md` | `references/lark-cli-v2-quickref.md` | lark-cli v2 API 命令速查：创建/写入/删除/验证 Wiki 文档的正确 flags |
 | marketing-funnel-template.md | `references/marketing-funnel-template.md` | 运营营销方案漏斗数学模板：GMV反推、渠道矩阵、内容复用流、私域承接时间线、预算分配参考 |

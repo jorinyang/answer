@@ -4,6 +4,28 @@ All notable changes to the answer skill.
 
 ---
 
+## [v1.6.0] — 2026-06-18
+
+### 🆕 方法论注入（吸收 pm-skills）
+
+| 注入内容 | 位置 | 说明 |
+|---------|------|------|
+| **strategy-red-team 红队攻击** | Phase 7 Review → 7.2a | Steelman-then-Attack 方法论，Load-bearing Assumptions 审查，Fails-if + Cheapest Test + Kill Criterion。与 blue-team 互补：blue-team 审整体逻辑，red-team 攻核心假设 |
+| **pre-mortem Tiger 分级** | Phase 7 Review → 7.2b | Tiger/Paper Tiger/Elephant 三级死亡假设分类 |
+| **JTBD 6-part 价值主张** | Phase 2 Brief 模板 | Who/Why/What before/How/What after/Alternatives |
+| **Product Strategy Canvas** | Phase 2 Brief 模板 + references/ | 9-section 产品战略画布作为数字产品领域的 Brief 变体 |
+
+### 🔗 技能联动
+
+- 新增 related_skills: `pm-prioritization-frameworks`, `stakeholder-mapping`, `opportunity-solution-tree`
+- Phase 7 Review 方案文档互动规则：战略级方案额外运行 7.2a 红队攻击
+
+### 📚 新增参考文件
+
+- `references/product-strategy-canvas.md` — 9-section 产品战略画布（数字产品/SaaS/AI领域）
+
+---
+
 ## [v1.5.1] — 2026-06-11
 
 ### ⚡ 跳过场景
