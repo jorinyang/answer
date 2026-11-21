@@ -46,13 +46,31 @@ Clarify  →  Brief  →  Architect  →  Standards  →  Decompose  →  Build 
 
 | # | 阶段 | 做什么 | 来自 |
 |---|------|--------|------|
-| 1 | **Clarify** | 决策树遍历，追问到没有盲区 | grill-me |
-| 2 | **Brief** | 结构化简报，产出单一真源 | design-brief |
+| 1 | **Clarify** | 三层必过追问（本质 / 依据 / 优先级）+ 决策树 | grill-me |
+| 2 | **Brief** | 结构化简报 + 路径与规律对齐 | design-brief |
 | 3 | **Architect** | 结构/层次/流程/关键路径 | information-architecture |
 | 4 | **Standards** | 命名约定、复用模式、质量基线 | design-tokens |
 | 5 | **Decompose** | 垂直切片拆解，独立可验证 | brief-to-tasks |
 | 6 | **Build** | 按任务逐步构建，每步验证 | — |
-| 7 | **Review** | 对照简报逐项审查 + 压力测试 | design-review + blue-team |
+| 7 | **Review** | 四层审计 + 对照审查 + 压力测试 | design-review + blue-team |
+
+---
+
+## 四层思考：从「是什么」到「怎么做」
+
+answer 不是一上来就排任务。Phase 1 先把三件事问清，Phase 2 把走法与规律对齐，Phase 7 再回头审有没有偏。
+
+| 层 | 问什么 | 落在哪 |
+|---|---|---|
+| **本体** | 这东西到底是什么？ | Phase 1 需求本质（定义卡） |
+| **认识** | 我凭什么知道？ | Phase 1 依据核查（证据台账） |
+| **价值** | 为什么重要、排第几？ | Phase 1 优先级判定 + Phase 2 价值主张 |
+| **方法** | 路径是什么、依赖什么规律？ | Phase 2 路径与规律 → Phase 3–6 |
+| **审计** | 做出来的东西还对得上前面四层吗？ | Phase 7 四层审计 |
+
+三条闸门不可跳过：**三组追问没结论不进 Brief，路径与规律没对齐不进 Architect，四层审计不过不评为通过。**
+
+> 只想把一件事想清楚、不需要产出交付物时，用同仓库的独立技能 [`skills/four-layer-inquiry`](skills/four-layer-inquiry/SKILL.md)：只追问，不写文件。
 
 ---
 
@@ -170,25 +188,26 @@ answer review: gzzhike-summer-plan
 ## 编排规则
 
 1. **每阶段确认制** — 用户不确认，不进下一阶段
-2. **可跳过** — 已有清晰思路可跳 Clarify；单一产出可跳 Architect
-3. **可暂停** — 说"够了"即停止，Wiki 节点保留检查点，随时恢复
-4. **中断恢复** — 返回时自动检测 Wiki 已有文档，从断点继续
-5. **产出全进 Wiki** — 不散落本地文件
+2. **三道闸门不可跳过** — 三组追问、路径与规律、四层审计
+3. **可跳过** — 已有清晰思路可跳 Clarify；单一产出可跳 Architect
+4. **可暂停** — 说"够了"即停止，Wiki 节点保留检查点，随时恢复
+5. **中断恢复** — 返回时自动检测 Wiki 已有文档，从断点继续
+6. **产出全进 Wiki** — 不散落本地文件
 
 ---
 
-## 集成生态
+## 集成生态（可选，非依赖）
 
-answer 在 Build 阶段调用 Hermes 技能生态完成具体交付：
+answer 本体独立运行，跑完 7 阶段不需要任何外部技能。下表技能存在时用于增强，不存在时用内置方式兜底：
 
-| 产出类型 | 调用的技能 |
-|---------|-----------|
-| HTML 页面 / 展示页 | `feishu-html` |
-| 飞书在线文档 | `feishu-doc` |
-| SVG 架构图 | `architecture-diagram` |
-| 客户行程落地页 | `trip-landing` |
-| Hermes 技能文件 | `skill_manage` |
-| 方案逻辑审查 | `blue-team` |
+| 产出类型 | 有该技能时 | 没有时（内置兜底） |
+|---------|-----------|------------------|
+| HTML 页面 / 展示页 | `feishu-html` | 手写单文件 HTML |
+| 飞书在线文档 | `feishu-doc` | 内置 lark-cli 一步法，或降级本地 .md |
+| SVG 架构图 | — | 直接写 SVG 转 PNG |
+| 客户行程落地页 | `trip-landing` | 按页面结构手写 |
+| 技能文件 | `skill_manage` | 按目录规范手写 SKILL.md |
+| 方案逻辑审查 | `blue-team` | 7.2 内置三步版 + 7.2a 红队 |
 
 ---
 
@@ -196,9 +215,14 @@ answer 在 Build 阶段调用 Hermes 技能生态完成具体交付：
 
 ```
 answer/
-├── SKILL.md                    ← 主技能文件
+├── SKILL.md                    ← 主技能文件（7 阶段）
 ├── references/
 │   └── domain-mapping.md       ← 6 领域 × 7 阶段完整模板
+├── skills/
+│   └── four-layer-inquiry/     ← 四层追问（独立技能，与 answer 互不依赖）
+│       └── SKILL.md
+├── scripts/
+│   └── verify-skill.mjs        ← 发布前自检：frontmatter、引用路径、小节号
 ├── CHANGELOG.md
 ├── LICENSE                     ← MIT
 ├── README.md                   ← 本文件
@@ -211,9 +235,16 @@ answer/
 
 | 版本 | 日期 | 关键变更 |
 |------|------|---------|
+| **v1.7.0** | 2026-11-22 | 四层思考注入：Phase 1 三层必过追问与定义卡 / 证据台账 / 优先级判定；Phase 2 路径与规律对齐；Phase 7 四层审计；外部技能改为可选兜底；新增 four-layer-inquiry 技能 |
+| **v1.6.0** | 2026-06-18 | 吸收 pm-skills：红队攻击、pre-mortem 分级、JTBD 价值主张、产品战略画布 |
+| **v1.5.1** | 2026-06-11 | 小型前端 / 简单 CRUD 跳过场景；若干反模式补丁 |
+| **v1.5.0** | 2026-06-05 | 联动技能调整 |
+| **v1.4.0** | 2026-06-05 | 吸收 execplan 9 项：可观测验收、Spike、活文档、幂等、决策日志、成果回顾、接口规格 |
 | **v1.1.1** | 2026-05-29 | 名称修正 `anwser`→`answer`；README 重构 |
 | **v1.1.0** | 2026-05-29 | 100+ 触发词；6 领域；3 级置信度；错误处理；中断恢复 |
 | **v1.0.0** | 2026-05-29 | 初始发布：7 阶段 + 飞书 Wiki 归档 |
+
+> v1.2 / v1.3 的变更记录缺失（tag 存在、CHANGELOG 无条目），待补。
 
 详见 [CHANGELOG.md](CHANGELOG.md)
 

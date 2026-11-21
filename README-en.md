@@ -46,13 +46,31 @@ Each phase is a hard pause — Phase N incomplete, Phase N+1 locked. Every phase
 
 | # | Phase | What happens | Method |
 |---|-------|-------------|--------|
-| 1 | **Clarify** | Decision tree traversal — leave no blind spot | grill-me |
-| 2 | **Brief** | Structured brief — single source of truth | design-brief |
+| 1 | **Clarify** | Three mandatory probes (essence / evidence / priority) + decision tree | grill-me |
+| 2 | **Brief** | Structured brief + path-and-mechanism alignment | design-brief |
 | 3 | **Architect** | Structure, hierarchy, flows, critical paths | information-architecture |
 | 4 | **Standards** | Naming conventions, reusable patterns, DoD | design-tokens |
 | 5 | **Decompose** | Vertical slice decomposition — each task independently verifiable | brief-to-tasks |
 | 6 | **Build** | Incremental construction with per-task validation | — |
-| 7 | **Review** | Brief-to-output audit + adversarial stress test | design-review + blue-team |
+| 7 | **Review** | Four-layer audit + brief-to-output audit + stress test | design-review + blue-team |
+
+---
+
+## Four-Layer Thinking: from "what is it" to "how to do it"
+
+answer does not jump to task lists. Phase 1 settles three questions, Phase 2 aligns the path and the mechanism behind it, Phase 7 audits whether the output still matches all of it.
+
+| Layer | Question | Where it lives |
+|---|---|---|
+| **Ontology** | What exactly is this? | Phase 1 — Essence (definition card) |
+| **Epistemology** | How do I know that? | Phase 1 — Evidence ledger |
+| **Axiology** | Why does it matter, and how much? | Phase 1 — Priority verdict + Phase 2 value proposition |
+| **Methodology** | What is the path, and which mechanism does it rest on? | Phase 2 — Path and mechanism → Phase 3–6 |
+| **Audit** | Does the output still match the four layers above? | Phase 7 — Four-layer audit |
+
+Three gates cannot be skipped: **no conclusions on the three probes → no Brief; path not aligned → no Architect; four-layer audit failed → not a pass.**
+
+> When you only need to think one thing through, with no deliverable, use the independent skill [`skills/four-layer-inquiry`](skills/four-layer-inquiry/SKILL.md) — it only asks, it writes no files.
 
 ---
 
@@ -172,25 +190,26 @@ Check every output against the Brief: completeness, consistency, standards compl
 ## Orchestration Rules
 
 1. **Confirmation-gated** — no auto-advancing between phases
-2. **Skippable** — skip Clarify if intent is clear; skip Architect for single deliverables
-3. **Pausable** — say "stop" anytime; Wiki nodes preserve checkpoints
-4. **Resumable** — auto-detects existing Wiki docs and resumes from breakpoint
-5. **All output to Wiki** — no scattered local files
+2. **Three non-skippable gates** — the three probes, path-and-mechanism alignment, four-layer audit
+3. **Skippable** — skip the Clarify decision tree if intent is clear; skip Architect for single deliverables. The three gates stay mandatory — skipping one means answer was not run
+4. **Pausable** — say "stop" anytime; Wiki nodes preserve checkpoints
+5. **Resumable** — auto-detects existing Wiki docs and resumes from breakpoint
+6. **All output to Wiki** — no scattered local files
 
 ---
 
-## Integration Ecosystem
+## Integration Ecosystem (optional, not a dependency)
 
-answer delegates Build-phase delivery to the Hermes skill ecosystem:
+answer runs all 7 phases without any external skill. The skills below enhance output when present; otherwise the built-in fallback is used:
 
-| Output type | Delegated to |
-|------------|-------------|
-| HTML pages / landing pages | `feishu-html` |
-| Feishu online documents | `feishu-doc` |
-| SVG architecture diagrams | `architecture-diagram` |
-| Client trip landing pages | `trip-landing` |
-| Hermes skill files | `skill_manage` |
-| Proposal logic review | `blue-team` |
+| Output type | If the skill exists | If not (built-in fallback) |
+|------------|--------------------|---------------------------|
+| HTML pages / landing pages | `feishu-html` | Hand-write a single HTML file |
+| Feishu online documents | `feishu-doc` | Built-in lark-cli one-step, or local .md |
+| SVG architecture diagrams | — | Write SVG directly, render to PNG |
+| Client trip landing pages | `trip-landing` | Hand-write from the page structure |
+| Skill files | `skill_manage` | Hand-write SKILL.md per directory spec |
+| Proposal logic review | `blue-team` | Built-in 3-step review + 7.2a red team |
 
 ---
 
@@ -198,9 +217,14 @@ answer delegates Build-phase delivery to the Hermes skill ecosystem:
 
 ```
 answer/
-├── SKILL.md                    ← Main skill file
+├── SKILL.md                    ← Main skill file (7 phases)
 ├── references/
 │   └── domain-mapping.md       ← 6 domains × 7 phases templates
+├── skills/
+│   └── four-layer-inquiry/     ← Four-layer inquiry (independent, not referenced by answer)
+│       └── SKILL.md
+├── scripts/
+│   └── verify-skill.mjs        ← Pre-release check: frontmatter, reference paths, section numbering
 ├── CHANGELOG.md
 ├── LICENSE                     ← MIT
 ├── README.md                   ← Chinese version
@@ -213,11 +237,18 @@ answer/
 
 | Version | Date | Key Changes |
 |---------|------|-------------|
+| **v1.7.0** | 2026-11-22 | Four-layer thinking: three mandatory probes + definition card / evidence ledger / priority verdict in Phase 1; path-and-mechanism alignment in Phase 2; four-layer audit in Phase 7; external skills become optional fallbacks; new four-layer-inquiry skill |
+| **v1.6.0** | 2026-06-18 | pm-skills absorption: red team, pre-mortem tiers, JTBD value proposition, product strategy canvas |
+| **v1.5.1** | 2026-06-11 | Skip scenarios for small front-end / simple CRUD; anti-pattern patches |
+| **v1.5.0** | 2026-06-05 | Related-skill adjustments |
+| **v1.4.0** | 2026-06-05 | execplan absorption: observable outcomes, spike, living document, idempotence, decision log, retrospective, interface specs |
 | **v1.1.1** | 2026-05-29 | Name fix `anwser`→`answer`; README restructuring |
 | **v1.1.0** | 2026-05-29 | 100+ triggers; 6 domains; 3-tier confidence; error handling; resume support |
 | **v1.0.0** | 2026-05-29 | Initial release: 7 phases + Feishu Wiki archiving |
 
 See [CHANGELOG.md](CHANGELOG.md)
+
+> CHANGELOG entries for v1.2 / v1.3 are missing (tags exist, no records) — to be backfilled.
 
 ---
 

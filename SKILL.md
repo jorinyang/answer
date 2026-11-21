@@ -1,8 +1,12 @@
 ---
 name: answer
-description: AI Native'S Workflow(er) — 7 阶段结构化工作流编排器。适用于任何从零开始的复杂构建任务：新业务/新产品/新技能/新方案/新流程/新系统/调研分析/策略规划/项目启动/决策支持/汇报演示/预算规划/复盘总结/运营营销/品牌策划/架构设计/迭代优化。以 design-flow 编排范式为核心，串联 clarify → brief → architect → standards → decompose → build → review。触发：answer / 梳理思路 / 从零开始 / 帮我规划 / 设计方案 / 启动项目 / 拆解问题 / 写方案 / 做BP / SOP / 做复盘 / 运营方案 / 营销计划 / from scratch / plan this 等 100+ 关键词。
-version: 1.1.1
+description: AI Native'S Workflow(er) — 7 阶段结构化工作流编排器。适用于任何从零开始的复杂构建任务：新业务/新产品/新技能/新方案/新流程/新系统/调研分析/策略规划/项目启动/决策支持/汇报演示/预算规划/复盘总结/运营营销/品牌策划/架构设计/迭代优化。以 design-flow 编排范式为核心，串联 clarify → brief → architect → standards → decompose → build → review。内置三道闸门：Phase 1 的「本质 / 依据 / 优先级」三层必过追问、Phase 2 的「路径与规律」对齐、Phase 7 的「四层审计」。触发：answer / 梳理思路 / 从零开始 / 帮我规划 / 设计方案 / 启动项目 / 拆解问题 / 写方案 / 做BP / SOP / 做复盘 / 运营方案 / 营销计划 / from scratch / plan this 等 100+ 关键词。
+version: 1.7.0
 author: 杨瑒 (月夜)
+metadata:
+  hermes:
+    tags: [workflow, design-flow, builder, orchestrator]
+    related_skills: [advanced-elicitation, editorial-review-prose, editorial-review-structure, blue-team, huashu-design, feishu-html, feishu-doc, trip-landing, pm-prioritization-frameworks, stakeholder-mapping, opportunity-solution-tree]
 triggers:
   # 显式调用
   - "answer"
@@ -157,6 +161,87 @@ triggers:
 
 ## 触发条件
 
+### 通用领域触发矩阵
+
+7阶段工作流覆盖9大业务领域，45个子场景。
+
+#### AI / 技术产品
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| AI产品从零构建 | 用户要从零搭建AI产品 | "answer: 做一个AI客服产品" |
+| Agent系统设计 | 用户需要设计Multi-Agent系统 | "从零开始设计一个Agent编排系统" |
+| RAG系统搭建 | 用户需要搭建RAG系统 | "从零规划一个企业RAG知识库" |
+| 模型选型决策 | 用户需要系统化模型选型 | "梳理一下我们应该用哪个模型" |
+| AI应用商业化 | 用户需要AI产品的商业化方案 | "梳理一下这个AI工具的变现路径" |
+
+#### 数字产品 / SaaS
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| SaaS产品启动 | 用户要启动SaaS产品 | "从零开始做一个SaaS工具" |
+| 产品功能规划 | 用户需要系统化功能规划 | "梳理这个产品的MVP和roadmap" |
+| 技术架构决策 | 用户需要架构方案设计 | "design this: 技术栈选型和架构方案" |
+| 用户增长方案 | 用户需要系统化增长策略 | "answer: 用户增长策略" |
+| 定价模式设计 | 用户需要定价方案设计 | "梳理一下这个SaaS的定价模式" |
+
+#### 业务流程 / 运营
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| SOP流程设计 | 用户需要设计操作流程 | "设计一个客服SOP流程" |
+| 运营方案策划 | 用户需要运营策划案 | "做一个暑期营销运营方案" |
+| 数字化转型 | 用户需要数字化转型方案 | "梳理一下传统企业数字化转型路径" |
+| 组织架构设计 | 用户需要组织架构方案 | "设计这个团队的OKR和架构" |
+| 项目管理方案 | 用户需要项目管理系统 | "梳理一下多项目管理流程" |
+
+#### 市场营销 / 品牌
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 营销方案策划 | 用户需要营销策划案 | "做一个新产品上市营销方案" |
+| 品牌策略规划 | 用户需要品牌策略 | "从零梳理这个品牌的定位和策略" |
+| 内容营销体系 | 用户需要内容营销规划 | "梳理一下内容营销的选题和分发" |
+| 社交媒体策略 | 用户需要社媒运营方案 | "answer: 社交媒体运营策略" |
+| 活动策划 | 用户需要活动方案 | "设计一个线上发布会活动方案" |
+
+#### 商业策略 / 创业
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 商业模式设计 | 用户需要商业模式设计 | "梳理这个项目的商业模式" |
+| 商业计划书 | 用户需要BP | "写一个BP" |
+| 市场进入策略 | 用户需要市场进入方案 | "梳理一下进入这个市场的策略" |
+| 竞品分析 | 用户需要系统化竞品分析 | "answer: 竞品深度分析" |
+| 融资方案 | 用户需要融资规划 | "梳理一下A轮融资方案" |
+
+#### 技能/工具创建
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| Skill创建 | 用户需要创建Hermes技能 | "创建一个skill" |
+| 工具开发 | 用户需要开发新工具 | "从零做一个自动化脚本工具" |
+| 工作流设计 | 用户需要设计自动化工作流 | "设计一个文档自动生成工作流" |
+| 集成方案 | 用户需要系统集成方案 | "梳理一下飞书+GitHub集成方案" |
+
+#### 调研分析
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 行业调研 | 用户需要系统化行业分析 | "梳理一下这个行业的竞争格局" |
+| 用户研究 | 用户需要用户研究方案 | "从零规划用户访谈和调研" |
+| 可行性分析 | 用户需要可行性研究 | "这个项目能不能做，梳理一下" |
+| 技术调研 | 用户需要技术调研方案 | "梳理一下微服务vs单体的选型" |
+
+#### 复盘/汇报
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 项目复盘 | 用户需要系统化复盘 | "做一个项目复盘" |
+| 年度总结 | 用户需要年度总结 | "写一个年度总结报告" |
+| 投资人汇报 | 用户需要投资人更新 | "做一个investor update" |
+| 绩效回顾 | 用户需要绩效回顾方案 | "梳理一下团队的OKR回顾" |
+
+#### 内容/创作
+| 场景 | 触发信号 | 示例 |
+|------|---------|------|
+| 内容策略 | 用户需要内容策略规划 | "梳理一下这个账号的内容策略" |
+| 课程设计 | 用户需要课程体系设计 | "设计一个AI入门课程大纲" |
+| 知识库搭建 | 用户需要知识库规划 | "梳理一下团队知识库的结构" |
+| 视频系列 | 用户需要视频内容规划 | "规划一个技术视频系列" |
+
 ### 自动触发场景（按置信度分层）
 
 **Tier 1 — 显式调用（100% 触发）**：
@@ -221,79 +306,80 @@ triggers:
 ## 7 阶段编排序列
 
 ```
-1. Clarify    → 决策树遍历，追问到底（grill-me 方法论）
-2. Brief      → 结构化简报，记录意图/目标/约束（design-brief 方法论）
+1. Clarify    → 三层必过追问：本质 / 依据 / 优先级，再走决策树（grill-me 方法论）
+2. Brief      → 结构化简报 + 路径与规律对齐（design-brief 方法论）
 3. Architect  → 定义结构/层次/关系/流程（information-architecture 方法论）
 4. Standards  → 建立可复用标准/模式/规范（design-tokens 方法论）
 5. Decompose  → 拆解为独立可验证的增量任务（brief-to-tasks 方法论）
 6. Build      → 按任务逐步构建交付物
-7. Review     → 对照简报逐项检查（design-review + blue-team 方法论）
+7. Review     → 四层审计 + 对照简报逐项检查（design-review + blue-team 方法论）
 ```
 
 ### 编排规则
 
-1. **开始前**：告知完整 7 阶段序列，询问是否跳过某些阶段（常见跳过的：已有清晰思路可跳过 Clarify；单一产出可跳过 Architect）
-2. **每阶段前**：宣布进入哪个阶段、产出什么、确认是否继续
-3. **每阶段后**：总结产出（文件名、关键决策、开放问题），询问「进入下一阶段？」
-4. **阶段间检查**：前一阶段的输出是否影响下一阶段？（如 Brief 中的领域设定会影响 Standards 的规范模板）
-5. **可随时暂停**：用户说"够了"即停止，总结当前进度和下一步
+1. **开始前**：告知完整 7 阶段序列，询问是否跳过某些阶段。可跳的只是流程环节：已有清晰思路可跳过 Clarify 的决策树部分、单一产出可跳过 Architect；**三层必过追问、路径与规律对齐、四层审计三项不可跳过**，跳过即视为未走 answer
+2. **三道闸门不可跳过**：Phase 1 的「本质 / 依据 / 优先级」三组追问必须各有结论（哪怕结论是「证据不足，标为假设」）；Phase 2 的「路径与规律」必须与用户逐条对齐后才能进 Phase 3；Phase 7 的「四层审计」必须先于对照审查执行，审计不过不得评为通过。
+3. **每阶段前**：宣布进入哪个阶段、产出什么、确认是否继续
+4. **每阶段后**：总结产出（文件名、关键决策、开放问题），询问「进入下一阶段？」
+5. **阶段间检查**：前一阶段的输出是否影响下一阶段？（如 Brief 中的领域设定会影响 Standards 的规范模板）
+6. **可随时暂停**：用户说"够了"即停止，总结当前进度和下一步
+7. **活文档纪律**：`{answername}_工作流全记录` 是活文档（Living Document）——Phase 3 的关键架构决策、Phase 6 的意外发现和决策记录、Phase 7 的成果回顾，都必须持续更新到文档中。进度、决策、发现全在一处，确保跨会话中断后可从文档恢复。
 
 ### 产出目录
 
 所有产出创建为飞书在线文档，归档到 Wiki 节点 `J4EewYIT2ieFuwkRWbxcgWbFnhe`（AI Native 工作流）下。
 
-目录结构：
+**默认模式：合并文档**（用户偏好）。Phase 1-5 合并为单一飞书文档 `{answername}_工作流全记录`，各阶段作为一级章节。Phase 6 Build 产出最终交付物（方案文档/报告等），Phase 7 Review 追加到工作流记录文档末尾。
+
 ```
 J4EewYIT2ieFuwkRWbxcgWbFnhe (AI Native 工作流)
-└── {answername}/                    ← 项目 slug（如 "gzzhike-summer-plan"）
-    ├── CLARIFY_{answername}.md      ← Phase 1 产出
-    ├── BRIEF_{answername}.md        ← Phase 2 产出
-    ├── ARCHITECTURE_{answername}.md ← Phase 3 产出
-    ├── STANDARDS_{answername}.md    ← Phase 4 产出
-    ├── TASKS_{answername}.md        ← Phase 5 产出
-    ├── BUILD_LOG_{answername}.md   ← Phase 6 产出
-    └── REVIEW_{answername}.md      ← Phase 7 产出
+└── {answername}_工作流全记录        ← Phase 1-5 合并 + Phase 7 Review 追加
+    ├── # Phase 1: Clarify
+    ├── # Phase 2: Brief
+    ├── # Phase 3: Architect
+    ├── # Phase 4: Standards
+    ├── # Phase 5: Decompose
+    └── # Phase 7: Review
+└── {最终交付物}                     ← Phase 6 Build 产出（方案文档/报告等）
 ```
 
-**创建文档方法**：使用飞书 Open API 在指定 parent_node_token 下创建文档，然后用 lark-cli 写入内容。
+**分文档模式**（仅在用户明确要求时使用）——每阶段独立文档：
 
-```python
-import urllib.request, urllib.parse, json
-
-def create_wiki_doc(token, space_id, parent_token, title):
-    """在 Wiki 节点下创建文档，返回 obj_token 和 url"""
-    req = urllib.request.Request(
-        f'https://open.feishu.cn/open-apis/wiki/v2/spaces/{space_id}/nodes',
-        data=json.dumps({
-            'obj_type': 'docx',
-            'parent_node_token': parent_token,
-            'node_type': 'origin',
-            'title': title
-        }).encode(),
-        headers={
-            'Authorization': f'Bearer {token}',
-            'Content-Type': 'application/json'
-        },
-        method='POST'
-    )
-    with urllib.request.urlopen(req) as r:
-        data = json.loads(r.read())['data']
-        return data['node']['obj_token'], data['node']['url']
-
-def write_doc_content(token, obj_token, content):
-    """用 lark-cli overwrite 写入飞书文档"""
-    import subprocess, tempfile, os
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as f:
-        f.write(content)
-        tmp = f.name
-    subprocess.run([
-        'lark-cli', 'docs', '+update', '--api-version', 'v2',
-        '--doc', obj_token, '--command', 'overwrite',
-        '--content', f'@{os.path.relpath(tmp)}', '--as', 'bot'
-    ], check=True, cwd=os.path.dirname(tmp))
-    os.unlink(tmp)
+```
+J4EewYIT2ieFuwkRWbxcgWbFnhe (AI Native 工作流)
+└── {answername}/
+    ├── CLARIFY_{answername}
+    ├── BRIEF_{answername}
+    ├── ARCHITECTURE_{answername}
+    ├── STANDARDS_{answername}
+    ├── TASKS_{answername}
+    ├── BUILD_LOG_{answername}
+    └── REVIEW_{answername}
 ```
 
+**注意**：Phase 1-5 产出完成后，如果用户要求合并已有文档，使用 `lark-cli wiki +node-delete --node-token TOKEN --obj-type wiki --yes` 删除分散文档（注意 `--obj-type wiki` 而非 `docx`），创建合并文档后重新写入。
+
+**创建文档方法**：必须使用 v2 API 一步法。**禁止两步法**（Wiki API 建节点 + docs update 写内容）——该模式在 lark-cli v1.0.40–v1.0.44 上返回 `ok:true` 但文档永远为空。
+
+```bash
+# ✅ 一步法（唯一可靠方式）
+cd /tmp
+cat > doc.md << 'EOF'
+# {标题}
+
+{markdown 内容}
+EOF
+
+lark-cli docs +create --api-version v2 --doc-format markdown \
+  --title "{文档标题}" --content @doc.md \
+  --parent-token {parent_node_token} --as bot
+```
+
+**写入后校验**：
+```bash
+lark-cli docs +fetch --api-version v2 --doc {document_id} --as bot
+# 确认 revision_id > 1 且 blocks 数 > 0
+```
 ---
 
 ## 阶段详情
@@ -302,13 +388,24 @@ def write_doc_content(token, obj_token, content):
 
 **来源**：grill-me — 无死角追问，逼出所有设计决策
 
-**目标**：在动手之前，遍历决策树的每一个分支，确保所有前提假设都被显式化。
+**目标**：在动手之前，先确认「这是什么、我凭什么这么认为、为什么现在做它」，再遍历决策树的每一个分支，确保所有前提假设都被显式化。
 
 **方法**：
-1. 从用户初始描述中提取关键决策点，展开为决策树
-2. 逐分支追问，每个追问提供推荐答案
-3. 用代码库/数据源探索替代提问（能查到的不要问）
-4. 追问维度（按领域适配）：
+
+1. **先走三层必过追问**（先于业务维度——业务维度问得再细，本质错了全错）：
+
+| 层 | 追问什么 | 追问句式（问到对方答不动为止） | 达标标准 |
+|---|---|---|---|
+| **本质** | 这个东西到底是什么 | 「你说的 X 具体指什么？举一个具体例子」「去掉 Y 之后它还叫 X 吗？」「它和 Z 的界线在哪？」「用一句话定义它，这句话要能被反驳」 | 一句话定义 + 三个例子（是 / 不是 / 边界） |
+| **依据** | 我是怎么知道的 | 「这个说法最初从哪来？」「谁说的，他是第一手还是转述，有没有立场？」「有反例吗？」「如果这条信息不成立，判断会变吗？」 | 每条关键断言都能指到来源，并标了一手 / 二手 / 推测 |
+| **优先级** | 为什么现在做它 | 「对谁最重要？」「现在做和三个月后做差在哪？」「不做会怎样？」「如果只能做一件，是这件吗？」 | 能排出「现在必做 / 可以排后 / 不该做」三档 |
+
+> 三层的顺序来自「本体 → 认识 → 价值」的逐级思考：先定义清楚，再验证信息是否真实，最后判断优先级。三层没有结论就进 Phase 2，后面的架构和任务全建在沙上。
+
+2. 从用户初始描述中提取关键决策点，展开为决策树
+3. 逐分支追问，每个追问提供推荐答案
+4. 用代码库/数据源探索替代提问（能查到的不要问）
+5. 追问维度（按领域适配）：
 
 | 追问维度 | 新业务 | 新技能 | 新方案 |
 |---------|--------|--------|--------|
@@ -326,6 +423,29 @@ def write_doc_content(token, obj_token, content):
 ```markdown
 # Clarify: {answername}
 
+## 需求本质（定义卡）
+
+- **一句话定义**：{能被反驳的一句话}
+- **是**：{例子 1}
+- **不是**：{例子 2}
+- **边界**：{例子 3，最容易混的那一类}
+- **易混词**：{X 与 Y 的分界}
+- **一句话说它不是什么**：{排除最常见的误解}
+
+## 依据核查（证据台账）
+
+| # | 关键断言 | 来源（谁 / 哪份文件 / 哪次对话） | 类型 | 可信度 | 反证条件（什么出现就推翻它） |
+|---|---------|------------------------------|------|--------|------------------------------|
+| A1 | {断言} | {来源} | 一手 / 二手 / 推测 | 高 / 中 / 低 | {条件} |
+
+> 类型只能填「一手 / 二手 / 推测」三者之一。填不出来源的断言，标为「假设」，后续阶段不得当结论使用。
+
+## 优先级判定
+
+| 事项 | 对谁最重要 | 现在做的理由 | 不做的代价 | 档位 |
+|------|-----------|-------------|-----------|------|
+| {事项} | {相关方} | {理由} | {代价} | 现在必做 / 可以排后 / 不该做 |
+
 ## 决策树
 ### Q1: {核心问题}
 - 推荐答案：{recommendation}
@@ -340,14 +460,14 @@ def write_doc_content(token, obj_token, content):
 2. {decision 2}
 
 ## 仍开放的追问
-- {open question 1}（将在 Phase 2 Brief 中作为假设记录，或在后续阶段回答）
+- {open question 1}（作为假设记入上面的「依据核查」，在后续阶段验证）
 
-**处理开放问题**：无法在此阶段回答的开放问题，记录到 Brief 的「待验证假设」字段中，供后续阶段引用。
+**处理开放问题**：无法在此阶段回答的开放问题，以「假设」身份记入「依据核查」，标清它一旦不成立会推翻哪个判断。
 
-🔴 **CHECKPOINT**：确认决策树已遍历完毕、关键决策已记录，再进入 Phase 2。
+🔴 **CHECKPOINT**：三组追问（本质 / 依据 / 优先级）各有结论，且决策树已遍历完毕，再进入 Phase 2。
 ```
 
-**过渡语**："我们已遍历核心决策树。下面把结论沉淀为结构化简报。继续？"
+**过渡语**："三组追问与核心决策树都已走完。下面把结论沉淀为结构化简报。继续？"
 
 ---
 
@@ -361,6 +481,7 @@ def write_doc_content(token, obj_token, content):
 1. 基于 Phase 1 的决策树结果，填充简报模板
 2. 探索已有资源（对于技能创建：已有技能文件；对于业务：已有飞书文档/数据）
 3. 为每个决策项提供推荐答案
+4. 在进入 Phase 3 前完成「路径与规律」对齐：把走法和它依赖的机制一起摆给用户，逐条确认后才进架构
 
 **产出**：`BRIEF_{answername}.md` — 结构化简报
 
@@ -380,15 +501,71 @@ def write_doc_content(token, obj_token, content):
 2. ...
 3. ...
 
+## 价值主张（JTBD 6-part — 数字产品/服务类项目必填）
+
+> 🆕 借鉴 pm-skills `value-proposition`——用 JTBD 框架定义价值主张，替代空泛的「我们提供XX」。
+
+对每个目标用户群：
+
+| 维度 | 说明 | 示例 |
+|------|------|------|
+| **Who（谁）** | 目标用户的具体画像 | 「中型企业 IT 经理，每天处理 50+ 审批」 |
+| **Why（为什么）** | 他们的痛点/未满足需求 | 「现有工具审批慢、追溯难、跨部门协调靠微信」 |
+| **What before（现状）** | 他们现在怎么做的 | 「Excel + 微信 + 邮件三件套，平均每单 3 天」 |
+| **How（我们怎么做）** | 我们的解决方式 | 「一站式审批：自动路由 + 移动端秒批 + 全程留痕」 |
+| **What after（改善后）** | 使用后的改善结果 | 「审批时间从 3 天 → 2 小时，合规审计秒级响应」 |
+| **Alternatives（替代方案）** | 他们现在用什么替代 | 「钉钉审批（但缺乏定制化）、自研系统（维护成本高）」 |
+
+## 路径与规律（对齐用）
+
+> 这一节是 Phase 3 的输入前置：先和用户对齐「怎么走」以及「为什么这么走」，再谈结构。只写路径不写规律，等于给了别人一张自己也不知道为什么这么走的地图。
+
+**路径**（3–6 步，每步一句话，标出顺序与依赖）：
+
+1. {第一步} —— 依赖：无
+2. {第二步} —— 依赖：第 1 步
+3. ...
+
+**规律**（这条路径成立的机制、约束、因果）：
+
+| # | 规律 / 机制 | 约束了路径的哪一步 | 规律不成立时断在哪 |
+|---|------------|-------------------|-------------------|
+| L1 | {例如：口径未统一则数据不可比，所以必须先定口径再分析} | 第 2 步 | {断点} |
+
+**需要用户点头的判断**（逐条给推荐答案，全部确认后才进 Phase 3）：
+
+| # | 待确认判断 | 我的推荐 | 用户确认 |
+|---|-----------|---------|---------|
+| 1 | {判断} | {推荐 + 理由} | 待确认 |
+
+## 产品战略画布（数字产品/SaaS/AI方案类可选）
+
+> 🆕 如果产出是数字产品/SaaS/AI 产品的战略方案，可用 9-section Product Strategy Canvas 替代或补充上面的通用 Brief 模板。
+> 
+> 9-section: Vision → Market Segments → Relative Costs → Value Propositions → Trade-offs → Key Metrics → Growth → Capabilities → Can't/Won't (Defensibility)
+> 
+> 详见 `references/product-strategy-canvas.md`。
+
 ## 领域约束
 - 平台/环境：{已有技能、工具、平台限制}
 - 时间/资源：{截止日期、预算、团队}
 - 合规/品牌：{必须遵守的规范}
 
 ## 成功标准
-- {可量化的 KPI 1}
-- {可量化的 KPI 2}
-- {主观验收标准}
+
+每条标准必须是可观测的、人类可验证的。格式：「条件 → 操作 → 预期结果」
+
+- **SC-1**：{描述}。验证方法：{具体操作}，预期结果：{可观测输出}
+- **SC-2**：{描述}。验证方法：{具体操作}，预期结果：{可观测输出}
+
+> **示例（方案类）**：
+> - **SC-1**：方案逻辑无断层。验证方法：蓝军审查 Phase 2 死亡假设全部有应对，预期结果：蓝军报告无 Must Fix
+> - **SC-2**：交付物可在 10 分钟内被目标受众理解。验证方法：找 1 名未参与项目的人阅读后复述核心观点，预期结果：复述准确率 ≥ 80%
+>
+> **示例（技能类）**：
+> - **SC-1**：技能可从空状态触发。验证方法：在干净 Hermes 环境中说「触发词」，预期结果：Hermes 加载该技能并开始执行 Phase 1
+
+> 此格式借鉴 execplan 的 Observable Outcomes 方法论——验收标准必须是人类可感知的行为，而非内部属性。
 
 ## 已有资产
 {可以复用的技能、文档、代码、数据}
@@ -402,7 +579,7 @@ def write_doc_content(token, obj_token, content):
 {明确排除的内容，防止范围蔓延}
 ```
 
-**过渡语**："简报已结构化。下面我们定义架构——结构、层次、流程。继续？"
+**过渡语**："简报已结构化，路径与规律也已与你对齐。下面我们定义架构——结构、层次、流程。继续？"
 
 ---
 
@@ -461,9 +638,31 @@ def write_doc_content(token, obj_token, content):
 
 ## 增长适配
 {哪些部分会随时间扩展？如何处理？（分类/分页/归档）}
+
+## 接口规格（技术类项目时使用）
+
+> 借鉴 execplan 的 Interface Specs 方法论——对技术类项目显式定义模块接口。
+
+| 模块 | 输入 | 输出 | 依赖 |
+|------|------|------|------|
+| {模块A} | {类型 / 格式 / 示例} | {类型 / 格式 / 示例} | {外部服务的 API 版本 / 认证方式} |
+| {模块B} | {类型} | {类型} | — |
+
+### {模块名} 错误处理
+- 失败时回退行为：{描述}。
 ```
 
 **注意**：如果产出是单一文件/简单结构（如单篇方案文档），此阶段可快速通过——仅需确认内容大纲和层级（创建一个简化的 ARCHITECTURE 文档，只包含「结构总览」和「信息层级」两节，跳过模块关系和增长适配）。
+
+### Architect 视觉增强（精装修模式）
+
+当用户对 Phase 3 结构表达"看上去不够丰富"时，在不增加内容的条件下添加视觉层：
+
+1. **ASCII 架构全景图** — 用框图展示 Days × Modules 嵌套关系，标注子模块核心动作
+2. **三层能力映射表** — 认知层/操作层/创造层，每层标注覆盖模块和学员获得
+3. **时间配比** — Day 1/Day 2 实操/讲解/茶歇百分比分布
+
+原则：**内容一个不改，穿上视觉外衣**。不改变 Brief/Standards 中定义的任何设计决策。
 
 **过渡语**："架构已定义。下面建立标准和规范——复用模式、命名约定、质量基线。加载 domain-mapping 获取领域特定的规范模板。继续？"
 
@@ -548,6 +747,12 @@ def write_doc_content(token, obj_token, content):
 Generated from: BRIEF_{answername}.md
 Date: {date}
 
+## Spike（可行性验证）
+
+> 借鉴 execplan 的 Prototyping Milestones 方法论——先验证关键假设，再投入完整构建。
+
+- [ ] **{尖刺任务名}**: {要验证的假设}。_{通过标准：{可观测结果}}。_{若通过 → 进入 Core Task N；若不通过 → 记录到决策日志}。_
+
 ## Foundation（基础）
 - [ ] **{任务名}**: {一句话描述什么是"完成"}。_{状态：新建 / 复用 / 修改}。_
 
@@ -575,7 +780,11 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 
 **过渡语**："任务已拆解。下面按顺序逐步构建。是否现在开始构建？"
 
-🔴 **CHECKPOINT**：确认任务清单完整（Foundation + Core + Polish 三组齐全）、每个任务是垂直切片，再进入 Build。Build 阶段不可逆——开始后按任务顺序执行，不跳回重排。
+🔴 **CHECKPOINT**：
+1. 任务清单完整（Spike + Foundation + Core + Polish 四组齐全） ✓
+2. 每个任务是垂直切片（含内容+验证） ✓
+3. **自包含检查**：随机抽取 1 个任务，假设自己是"从没见过这个项目的人"——只看该任务的描述和上下文，能否独立完成？如果不能，缺少什么信息？ ✗
+4. 确认后进入 Build。Build 阶段不可逆——开始后按任务顺序执行，不跳回重排。
 
 ---
 
@@ -586,9 +795,10 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 **方法**：
 1. 从 Foundation 第一个任务开始
 2. 完成后立即验证（对照 Standards 中的 DoD）
-3. 打勾 ✅ 标记完成，输出该任务的交付物
-4. 确认后进入下一个任务
-5. 所有任务完成后，记录构建日志
+3. 🔴 **文档写入后强制校验**：每次用 `lark-cli docs +update --command overwrite` 写入飞书文档后，立刻 `lark-cli docs +fetch` 确认 `revision_id > 1` 且文本内容存在。创建时 revision_id=1 且无文本 = 写入失败。不跳过此步。
+4. 打勾 ✅ 标记完成，输出该任务的交付物
+5. 确认后进入下一个任务
+6. 所有任务完成后，记录构建日志
 
 **产出**：`BUILD_LOG_{answername}.md` + 各任务的交付物
 
@@ -599,22 +809,56 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 
 ## Task 1: {任务名}
 - 状态：✅ 完成
+- 时间：{开始时间} ~ {结束时间} (UTC+8)，耗时约 {分钟} min
 - 产出：{链接/文件路径}
 - 调用的技能/工具：{skill_manage / feishu-doc / feishu-html / ...}
 - 参数：{关键参数摘要}
 - 验证结果：{通过/失败 + 详情}
-- 备注：{遇到的问题 + 解决方案}
+
+### 💡 意外发现（如有）
+- {实施中发现的非预期行为 / 工具坑 / 边界情况}。_{证据：{复现步骤或输出摘要}}。_
+
+### 🔄 决策记录（如有）
+- 决策：{中途改了什么}
+- 理由：{为什么}
+- 替代方案：{曾考虑但放弃的选项 + 放弃原因}
 
 ## Task 2: {任务名}
 ...
 ```
 
-**重要**：Build 阶段可能调用其他技能来完成具体交付：
-- 需要做 HTML 页面 → 调用 `feishu-html`
-- 需要写飞书文档 → 调用 `feishu-doc`
-- 需要画架构图 → 调用 `architecture-diagram`
-- 需要做行程页 → 调用 `trip-landing`
-- 需要创建技能 → 调用 `skill_manage`
+**重要**：Build 阶段可能用到以下外部技能，**全部可选**；环境里没有时按括号里的兜底方式完成，不得因缺技能而中断交付：
+- 需要做 HTML 页面 → `feishu-html`（兜底：手写单文件 HTML，内联样式，本地打开自检）
+- 需要写飞书文档 → `feishu-doc`（兜底：本技能内置的 lark-cli 一步法；无飞书环境降级本地 .md）
+- 需要做行程页 → `trip-landing`（兜底：按页面结构手写）
+- 需要创建技能 → `skill_manage`（兜底：按目录规范手写 SKILL.md 与文件）
+- 需要画架构图 → 直接写 SVG 转 PNG（注意反例 #15 的字体与 emoji 要求），不依赖 `architecture-diagram`
+
+### 幂等性要求
+
+> 借鉴 execplan 的 Idempotence 方法论——步骤可安全重复执行，不产生副作用。
+
+- 创建类操作：先检查是否已存在，已存在则跳过（不覆盖）
+- 写入类操作：使用 overwrite 模式（重复执行结果一致）
+- 部署类操作：重复部署不产生重复资源（OSS 同名文件覆盖）
+- 如果某步骤不可幂等（如发送通知），在 BUILD_LOG 中显式标注 ⚠️ 非幂等
+
+### 全局决策日志
+
+> 借鉴 execplan 的 Decision Log 方法论——贯穿 Phase 3 和 Phase 6，记录所有关键决策。
+
+在工作流记录文档末尾维护「## 决策日志」章节：
+
+```markdown
+## 决策日志
+
+### D-001: {决策标题}
+- 阶段：Phase {3 Architect / 6 Build}
+- 决策：{选择了什么方案}
+- 理由：{为什么选这个}
+- 替代方案：{曾考虑的选项 + 放弃原因}
+- 日期/作者：{YYYY-MM-DD} / {作者}
+```
 
 **过渡语**："构建完成。现在运行审查——对照简报逐项检查质量。继续？"
 
@@ -622,11 +866,24 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 
 ### Phase 7: Review（质量审查）
 
-**来源**：design-review（对照性审查）+ blue-team（压力测试）
+**来源**：design-review（对照性审查）+ blue-team（压力测试）+ strategy-red-team（红队攻击）+ pre-mortem（风险分级）
 
 **目标**：对照 Brief 和 Standards，检查所有产出物的质量，暴露逻辑断层和实现偏差。
 
 **方法**：
+
+#### 7.0 四层审计（先审根本，再审细节）
+
+> 顺序不能颠倒：本质错了，细节再对也是白做。四项全部通过才进入 7.1。
+
+| # | 审计项 | 拿什么对什么 | 通过标准 | 不通过怎么办 |
+|---|--------|-------------|---------|-------------|
+| 1 | **本质一致** | 交付物 vs `CLARIFY` 的「需求本质（定义卡）」 | 每个产出物都能对上定义卡里「是」的例子；定义外的东西被明确列出并说明为何需要 | 出现定义外的产出 → 要么删，要么回 Phase 1 改定义 |
+| 2 | **依据充分** | 每条结论 / 数字 / 判断 vs `CLARIFY` 的「依据核查（证据台账）」 | 每条都能指到台账里的 A1、A2…；台账外的新断言补进台账并标来源 | 无来源的断言 → 进 Must Fix；补不到来源的降级为「推测」 |
+| 3 | **价值成立** | 交付物 vs `BRIEF` 的「价值主张」 | 解决的是价值主张里排第一的那一项；只解决次要项时必须说明为什么 | 价值错位 → 回 Phase 2 重排价值主张，不许靠包装措辞过关 |
+| 4 | **结果匹配需求** | 交付物 vs `CLARIFY` 的「优先级判定」 | 交付落在「现在必做」档；「可以排后 / 不该做」的东西没有被顺带做掉 | 越界 → 列出越界项，交用户决定保留还是移除 |
+
+**审计结论**只允许三种写法：`四项全过` / `N 项不通过（列出编号）` / `证据不足，无法判定`。禁止写「总体良好」「基本符合」。
 
 #### 7.1 对照性审查（design-review 方法论）
 
@@ -639,13 +896,121 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 | **标准合规** | 是否遵守 Standards 中定义的命名/格式/质量基线？ |
 | **依赖闭合** | Architect 中定义的依赖关系是否全部满足？ |
 | **受众适配** | 产出物对目标受众是否可用/可理解？ |
+| **结论可追溯** | 每条结论能否指回 `CLARIFY` 证据台账里的一行？无来源的有没有被标记？ |
 
 #### 7.2 压力测试（blue-team 方法论）
 
-调用 `blue-team` 技能对方案本身进行逻辑审查：
+**日常方案/流程 SOP**（快速模式）→ 使用内联简化版（3 步）：
+
 - 本质还原：核心价值主张是什么？
 - 死亡假设：如果失败，最可能的死因？
 - 苏格拉底追问：未被验证的前提假设？
+
+**战略级方案/BP/PRD**（全面模式）→ 加载完整 `blue-team` 技能：
+
+```
+skill_view('blue-team')
+```
+
+完整 6 阶段（Phase 0 前置澄清 → Phase 1 本质还原 → Phase 2 死亡假设 + Tiger 分级 → Phase 3 苏格拉底追问 → Phase 4 三维挑战 → Phase 5 重构+KPI → Phase 6 案例佐证），输出量化评分报告。
+
+#### 7.2a 红队攻击（strategy-red-team 方法论 — 战略级方案必用）
+
+> 🆕 借鉴 pm-skills `strategy-red-team` —— 攻击 Load-bearing Assumptions，不是泛泛的风险列表。
+
+适用于：战略方案、PRD、商业计划书、架构决策等**关键决策**文档。对日常方案（活动策划、简单流程 SOP）可选。
+
+**红队审查规则**（与 blue-team 的差异化定位）：
+
+| 维度 | blue-team | strategy-red-team |
+|------|-----------|-------------------|
+| **审查对象** | 方案整体逻辑 | **Load-bearing Assumptions**（承受性假设） |
+| **方法** | 死亡假设 + 苏格拉底追问 | **Steelman-then-Attack**（先建钢人再攻击） |
+| **输出** | 问题分级（Must/Should/Could Fix） | **Fail-if + Cheapest Test + Kill Criterion** |
+| **目标** | 提升方案质量 | **防止自信地押错注**——找到最便宜的证据来验证或推翻核心假设 |
+
+**红队流程**：
+
+1. **提取每个 claim**：列出方案断言为真的每件事——关于用户、市场、约束、机制、时间线。区分 **Load-bearing claims**（如果假，方案崩溃）和装饰性 claims。只攻击 Load-bearing 的。
+
+2. **Steelman, then Attack**：对每个 Load-bearing claim，先陈述它为真的最强版本，然后攻击那个版本——不是稻草人。攻击弱版本毫无价值。
+
+3. **每个失效模式写成「Fails if ___」**：具体、可证伪。「Fails if 激活率不是真正的瓶颈」优于「执行风险」。
+
+4. **按 (Impact if wrong) × (Likelihood wrong) × (Cheapness to test) 排序**：列表顶部是本周就该测的——高影响、可能出错、测试便宜。
+
+5. **自我反驳，不编造**：默认「这个风险是真的」，除非方案已引用证据反驳。但如果一个 claim 确实有理有据，直接说——红队编造疑虑和橡皮图章一样没用。
+
+6. **每个存活下来的 kill-assumption 给三个动作**：
+   - **Fails if**：精确地，什么条件会让方案崩溃
+   - **Evidence to get this week**：本周能拿到的具体数据/查询/对话
+   - **Kill criterion**：到什么阈值你该停下来或改变方向
+   - **Cheapest test**：最小的验证实验
+
+**红队输出模板**：
+
+```
+## 红队审查: {方案名}
+
+### Top Kill-Assumptions（按测试便宜度排序，最多5条）
+对每条：
+- **Claim**: {承受性断言}
+- **Fails if**: {具体、可证伪的崩溃条件}
+- **Evidence to get this week**: {具体数据来源}
+- **Kill criterion**: {停止/转向阈值}
+- **Cheapest test**: {最小验证实验}
+
+### 什么站得住脚
+{明确说哪些部分理由充分——不编造疑虑}
+
+### 无法评估的部分
+{方案未给出足够信息的盲区}
+```
+
+**红队纪律**：
+- 不稻草人——攻击钢人或别攻击。
+- 不泛化风险列表——每一条都针对**这个**方案。
+- 不编造——如果站得住，就说站得住。
+- 无情排序——最便宜的、影响最大的测试才是整个红队的意义。
+
+#### 7.2b 死亡假设风险分级（pre-mortem Tiger 分级）
+
+> 🆕 对 blue-team 的死亡假设增加 Tigers / Paper Tigers / Elephants 三级分类。
+
+| 级别 | 含义 | 应对 |
+|------|------|------|
+| **🐯 Tiger** | 高概率 + 高影响 = 真老虎。必须直接应对。 | 缓解方案 + 监控指标 |
+| **📄 Paper Tiger** | 看起来吓人但经不起推敲 = 纸老虎。深入分析后发现没那么危险。 | 记录理由，不投入资源 |
+| **🐘 Elephant** | 低概率 + 高影响 = 房间里的大象。大家都知道但没人提。 | 明确承认 + if-then 预案 |
+
+**使用方式**：在 blue-team 审查完成后，将每个死亡假设标注 Tiger/Paper Tiger/Elephant 级别。Tiger 项写入 Must Fix，Elephant 写入 Should Fix 并附 if-then 预案。Paper Tiger 记录在「什么站得住脚」中。
+
+#### 7.2d 深度审视（Advanced Elicitation — 可选增强层）
+
+> 🆕 调用 `advanced-elicitation` 技能对产出做多视角审视。
+
+对 Review 中发现的 Must Fix / Should Fix 项，建议运行 2-3 种方法做深度审视：
+
+```
+加载 advanced-elicitation，对 Review 中的关键发现运行：
+- 方案/决策类 → Pre-mortem + First Principles + Inversion
+- 代码/技术类 → Boundary Sweep + 5 Whys + Red Team
+- 文案/内容类 → Critique & Refine + Socratic + Steelmanning
+```
+
+AE 不会自动运行——Phase 7 结束后提示用户"是否需要对关键发现运行深度审视？"
+
+#### 7.2c 文案质量门禁（Editorial Review — 可选增强层）
+
+> 🆕 调用 `editorial-review-prose` 技能对产出文案做临床级审查。
+
+如果最终交付物包含面向客户的文案：
+
+```
+加载 editorial-review-prose（如需贵州之客铁律，同时加载 zhike-content-output 作为 style_guide）
+→ 三列表格审查（原文/修订/变更理由）
+→ 用户逐条确认是否采用
+```
 
 #### 7.3 可视化验证（如产出是 HTML 页面）
 
@@ -661,6 +1026,17 @@ Task 1 → Task 2 → Task 3 (可与 4 并行)
 Review against: BRIEF_{answername}.md
 Date: {date}
 
+## 四层审计（先于对照审查）
+
+| # | 审计项 | 结果 | 证据 |
+|---|--------|------|------|
+| 1 | 本质一致 | ✅/❌ | {对到定义卡哪一条} |
+| 2 | 依据充分 | ✅/❌ | {台账编号 / 缺失项} |
+| 3 | 价值成立 | ✅/❌ | {对应价值主张第几条} |
+| 4 | 结果匹配需求 | ✅/❌ | {档位 / 越界项} |
+
+**审计结论**：{四项全过 / N 项不通过（编号）/ 证据不足，无法判定}
+
 ## 对照审查
 
 | # | 检查项 | 结果 | 证据/备注 |
@@ -670,6 +1046,7 @@ Date: {date}
 | 3 | 标准合规 | ✅/❌ | {detail} |
 | 4 | 依赖闭合 | ✅/❌ | {detail} |
 | 5 | 受众适配 | ✅/❌ | {detail} |
+| 6 | 结论可追溯 | ✅/❌ | {detail} |
 
 ## Must Fix（必须修复）
 1. **[问题]**：{具体描述}。_修复方案：{建议}。_
@@ -683,8 +1060,36 @@ Date: {date}
 ## 蓝军审查摘要
 {调用 blue-team 的结果摘要或完整嵌入}
 
+## 红队审查摘要（战略级方案）
+{如有运行 7.2a 红队攻击，嵌入 Top Kill-Assumptions + Cheapest Test}
+
 ## 总体评分
 {score}/100 — {一句话总结}
+
+## 成果与回顾 (Outcomes & Retrospective)
+
+> 借鉴 execplan 的 Outcomes & Retrospective 方法论——对照 Brief 的成功标准，总结实际达成。
+
+### 对照 Brief 成功标准
+
+| Brief 中的成功标准 | 实际达成 | 差距 |
+|-------------------|---------|------|
+| {SC-1} | {实际结果} | {✅ 达标 / ⚠️ 部分 / ❌ 未达成} |
+| {SC-2} | {实际结果} | ... |
+
+### 未达成的目标（如有）
+
+- **{目标}**：未达成原因 → {原因}，建议：{后续行动}
+
+### 经验教训
+
+1. **{关键学习}**：{描述} — {对未来项目的启示}
+2. **{改进建议}**：{描述}
+
+### 可复用资产
+
+- 决策日志中的关键决策（D-001, D-002...）
+- 意外发现中可跨项目复用的发现（S-001...）
 ```
 
 ---
@@ -694,6 +1099,9 @@ Date: {date}
 详见 `references/domain-mapping.md` — 不同领域到 7 阶段的参数化模板。
 
 ### 快速适配表
+
+> 三个阶段的新增动作对所有领域一致，不因领域而豁免：Clarify 走「本质 / 依据 / 优先级」三组必过追问，Brief 补「路径与规律」，Review 先跑四层审计再跑对照审查。
+
 
 | 阶段 | 🏢 新业务/产品 | 🛠️ 新技能 | 📋 新方案 | 🔄 流程/SOP | 🔍 分析/调研 | 🎯 决策支持 |
 |------|----------|----------|----------|----------|----------|----------|
@@ -720,10 +1128,12 @@ Date: {date}
 
 | # | 陷阱 | 后果 | 正确做法 |
 |---|------|------|---------|
+| 0 | **用两步法创建文档（Wiki API 建节点 + v2 update 写内容）** | 返回 `ok:true` revision_id 递增但 blocks=0，文档永远为空。lark-cli v1.0.40–v1.0.44 均存在此 bug | 必须用一步法：`docs +create --api-version v2 --doc-format markdown --title \"标题\" --content @file.md --parent-token TOKEN --as bot`。详见 feishu-doc 技能「两步法陷阱」 |
 | 1 | 跳过 Clarify 直接写 Brief | 后续阶段基于未验证假设 | 至少确认 3 个核心假设 |
 | 2 | Brief 写成功能列表 | 失去方向一致性 | 用"体验/流程"语言描述，不用"功能"语言 |
 | 3 | Architect 过于抽象 | 拆解时无法落地 | 每个模块必须有具体的内容描述 |
-| 4 | Standards 写了不用 | Build 时偏离规范 | Build 每完成一个任务对照 Standards 的 DoD |
+| 4 | Standards 写了不用 | Build 产出与 Standards 矛盾——最典型的是 Standards 写"以内容需求为准"但 Build 产出写了具体数字（如"8-45s""8-15s"），用户一眼发现。定性标准被 Build 偷换成定量捷径 | Build 每完成一个任务对照 Standards 逐条检查，尤其警惕"数值化改写"——Standards 说"以内容为准"就不能在产出里写任何时长范围 |
+| 4a | **训练/教学类文档的 Standards 写成"讲师备课用的提词器/教学备注"** | 用户会说"内容的规范应当是讲师面对学员要表达的内容"。Standards 定义了全文档的写作基调，写错则全篇语气偏离 | Standards 的「内容规范」必须写"讲师口吻，面向学员——文档=讲师张嘴就能念的逐字稿"，禁止写"此处讲师引导""讲师应在此处强调"等幕后备注。详见 `references/training-proposal-template.md` 常见陷阱第二条 |
 | 5 | Review 只挑问题不说不好的 | 团队不知道自己什么做对了 | 必须包含 "What Works Well" |
 
 ### ⛔ 反例与禁止操作
@@ -739,8 +1149,19 @@ Date: {date}
 | 5 | **Review 评分用"大概 80 分"/"还不错"等主观表述** | 无量化评分不可复现、不可对比 | 对照审查表的 5 个维度逐项打分，计算加权总分 |
 | 6 | **Wiki API 失败时静默跳过，用户不知道产出丢失** | 静默失败是最危险的失败模式 | 降级到本地文件并明确告知用户 |
 | 7 | **领域识别错误时强行继续而不纠正** | 用错误的追问模板走完全程 = 全篇作废 | 任何阶段发现领域不匹配，立即回退到 Clarify 重新确认 |
+| 8 | **用 answer 子方法论裸拼替代完整 7 阶段** | 用户说"用 answer 方法论"，但 Agent 只调用了 grill-me/design-brief/information-architecture 等子方法独立拼凑，跳过 7 阶段的交互确认流。产出看似用了设计方法论，实则完全脱离了 answer 的编排逻辑。用户会发现你根本没走 answer | answer 的 7 阶段是**强制管线**——Phase 1 到 Phase 7 必须按序执行，每阶段有用户确认检查点。用子方法论碎片≠用了 answer。触发器："用 answer 方法论"/"请使用answer的方法论" → 必须从 Phase 1 Clarify 开始完整走 7 阶段交互 |
+| 9 | **把"重构 README"误解为"做网页"** | 用户说"用 answer + huashu-design 重构 GitHub README"，Agent 创建了一个 HTML SPA 页面而不是 markdown 文件。GitHub README 是纯文本，不是 Web 应用 | README 重构 = 重写 markdown 文件。huashu-design 在此场景中为轻量注入（信息层级 + 反 AI slop），不是做 HTML 页面。详见 `references/readme-design-paradigm.md` |
 
-> 💡 以上 7 条反例来自 answer 第一次端到端测试的发现和 Darwin 优化器的实证数据。每一条都对应至少一次真实翻车。
+| 10 | **每个阶段单独创建飞书文档** | 用户明确偏好合并输出，拆散文档增加管理负担。Phase 1-5 应合并为单一工作流记录文档 | 默认合并：`{answername}_工作流全记录`。Phase 1-5 为章节，Phase 6 产出独立交付物文档，Phase 7 Review 追加到工作流记录末尾 |
+| 11 | **用 `wiki +node-delete --obj-type docx` 删 Wiki 节点** | Wiki 节点的 obj_type 是 `wiki` 而非 `docx`。用错会报 131005 not found | 使用 `lark-cli wiki +node-delete --node-token TOKEN --obj-type wiki --yes --as bot`
+| 12 | **创建文档后不验证 title** | 飞书 API 偶发静默回退 title 为 "Untitled"——创建返回成功但文档名是默认值 | 创建后立即 `lark-cli api GET /open-apis/wiki/v2/spaces/get_node` 检查 `title != "Untitled"` |
+| 14 | **培训文档写成了给讲师的元注释而非逐字稿** | 用户纠正"内容规范应当是讲师面对学员要表达的内容"。Agent 在 Standards 中写"讲师视角""一句话核心——讲师用"等元注释方向，但应该直接写出讲师对学员要说的话，不是给讲师看的备注。用户一眼发现方向错误 | 培训/授课类文档的 Standards 内容规范必须声明"面向学员的逐字稿，不是给讲师的备注"。判断标准：文档中的每一句话，讲师能否直接念给学员听？不能念的=不该写。结构骨架可以有控制标记（⏱/🖐️），但正文内容必须是可念出口的话 |
+| 15 | **SVG 架构图转 PNG 嵌入飞书文档时中文变方框** | cairosvg 在 Linux 服务器端渲染 SVG 为 PNG 时，PingFang SC / HarmonyOS Sans SC 字体不可用，所有中文字符渲染为空心方框 □。用户看到的架构图全是方框和 X | (1) SVG 中 font-family 必须使用 Linux 系统可用的中文字体：`"Noto Sans SC", "SimSun", sans-serif`。(2) SVG 中禁止使用 emoji（🏗️🔭🔴🟠🔵 等），cairosvg 无法渲染 emoji 字形，会变成方框或 X。使用 HTML 实体替代：▶ `&#9654;`、→ `&#8594;`、◆ `&#9670;`。(3) 生成 PNG 后必须用 vision 工具验证中文正常显示再嵌入飞书 |
+| 16 | **飞书文档覆盖写入后架构图丢失** | `docs +update --command overwrite` 会清空文档所有 block 并重新写入，之前通过 `+media-insert` 插入的图片块被一并清除。用户发现架构图不见了 | 每次 overwrite 后必须重新插入图片：`docs +media-insert --doc ID --file ./image.png --type image --width 1920 --align center --selection-with-ellipsis "文档开头...唯一文本" --before --as bot`。注意 `+media-insert` 要求相对路径，必须先 cd 到图片所在目录 |
+| 17 | **飞书图片块替换用 `+media-upload` 不生效** | `docs +media-upload` 只上传文件到飞书存储并返回 file_token，但不会将新 token 绑定到已有的图片块上。文档中显示的仍是旧图片 | 正确做法：先 `docs +media-upload` 获取新 file_token，然后用 `lark-cli api PATCH "/open-apis/docx/v1/documents/{doc_id}/blocks/{block_id}" --data '{"replace_image":{"token":"新token"}}' --as bot` 直接替换图片块中的 token |
+| 18 | **用完整培训提案模板（training-proposal-template.md）套轻量大纲需求** | 用户只想要课程日程表，Agent 却加载了含报价/场景诊断/公司介绍的 6 章模板，产出冗余章节。用户说"保持模板结构"指的是 .docx 的物理结构，不是让你加预算页 | 先判断文档类型：含报价+商务论证 → 用 `training-proposal-template.md`；纯课程内容不含商务 → 用 `training-outline-lite.md`。不确定时问用户"这份文档需要包含预算/报价吗？" |
+| 19 | **用「行业惯例 / 大家都这么说 / 客户一般都需要」代替来源** | 这类措辞把「没人验证过」伪装成「公认事实」，Phase 1 的依据核查会被整条绕过，后面所有结论都悬空 | 每条关键断言必须写出来源、类型（一手 / 二手 / 推测）、可信度；给不出来就标「假设」，不得当结论用 |
+| 20 | **只写路径不写规律** | 步骤看起来完整，但每一步依赖的机制没写，换人执行或环境一变就崩，用户也无法判断这条路是否成立 | Phase 2 的「路径与规律」必须成对出现：每条路径至少对应一条规律（机制 / 约束 / 因果），并说明规律不成立时断在哪一步 |
 
 ### 错误处理
 
@@ -748,38 +1169,44 @@ Date: {date}
 
 | 触发条件 (IF) | 一线修复 (THEN) | 仍失败时 (FALLBACK) |
 |------|---------|------|
-| Wiki API 创建文档失败（99992402） | 检查请求体是否包含 `node_type: "origin"`；重试 2 次（间隔 2s） | 降级为本地 `.md` 文件写入 `~/.hermes-feishu/answer/`，告知用户 API 不可用 |
-| Wiki API 返回其他错误码 | 打印完整 error response，分析 `msg` 字段 | 同上降级；记录错误日志供后续排查 |
+| Wiki API 创建文档失败（99992402） | 检查请求体 node_type 字段；重试 2 次（间隔 2s） | 降级为本地 .md 文件写入 ~/.hermes-feishu/answer/ |
+| **创建成功但 title 为 Untitled** | 删除原节点，3s 间隔重试创建 | 仍失败则用 API 单独 PATCH 更新 title |
+| Wiki API 返回其他错误码 | 打印完整 error response | 同上降级 |
 | lark-cli 写入失败 | 检查 lark-cli 配置（`lark-cli config show`），确认 `--as bot` 可用 | 改用 curl 直接调飞书 Open API（`docx/v1/documents/{id}/blocks` 批量写入） |
 | token 过期（99991663） | 重新调用 `auth/v3/tenant_access_token/internal` 获取新 token | 若连续 3 次获取失败，告知用户检查飞书应用凭证 |
 | 用户在阶段间 5 分钟不回复 | 不催促；保留已完成的 Wiki 文档作为检查点 | 不主动关闭；用户返回时从中断恢复流程继续 |
 | 领域无法自动识别 | 默认使用「新方案」模板；向用户展示候选领域，让用户选择 | 用户不选时以「新方案」开始 |
 | 用户输入过于模糊无法展开决策树 | 输出 1 个具体追问（如"你能举一个具体的使用场景吗？"），不强行还原 | 缩小追问范围到最核心的 1 个问题 |
 | Build 阶段某任务失败 | 标记该任务为 ❌，记录错误详情到 BUILD_LOG | 跳过该任务继续下一个；Phase 7 Review 时汇总所有失败任务 |
+| execute_code 脚本语法错误导致终端调用静默跳过 | 脚本中的 f-string 反斜杠等语法错误会使整个 execute_code 提前终止，后续 terminal() 调用全部不执行 | ① 写完文档后用 `docs +fetch` 验证 revision_id 递增且文本存在 ② 复杂脚本拆为多个 execute_code 调用，降低单点失败影响面 ③ f-string 中的引号检查用变量替代（`ok = '"ok": true' in output`） |
+| docs +update overwrite 返回成功但文档为空 | 创建时用的 `wiki +node-create` 生成空 docx，如果 overwrite 的 execute_code 脚本静默失败，revision_id 仍为 1 且无文本 | 每次 overwrite 后立刻 `docs +fetch` 检查 `revision_id > 1` 且有文本内容 |
 | 产出目录 `{answername}/` 下已有同名项目 | 追加时间戳后缀（`{answername}-{HHmm}`）避免覆盖 | 告知用户已有同名项目，询问是覆盖还是新建 |
 
 ### 中断恢复
 
 当用户说"暂停"/"够了"/"之后继续"，或对话中断后用户返回：
 
-1. **检查 Wiki 节点**：列出 `J4EewYIT2ieFuwkRWbxcgWbFnhe` 下 `{answername}/` 中的已有文档
+1. **检查 Wiki 节点**：列出 `J4EewYIT2ieFuwkRWbxcgWbFnhe` 下的已有文档
 2. **判断进度**：根据已存在的文档判断当前在哪个阶段：
-   - `CLARIFY_*.md` 存在 → 已完成 Phase 1
-   - `BRIEF_*.md` 存在 → 已完成 Phase 2
-   - ...类推
-3. **从中断阶段继续**：告知用户「上次进行到 Phase {N}，产出 {doc_list}，从 Phase {N+1} 继续？」
+   - `{answername}_工作流全记录` 存在 → 读取内容，判断最后完成的阶段
+   - 各阶段独立文档存在（旧模式）→ 按文档名判断
+3. **从中断阶段继续**：告知用户「上次进行到 Phase {N}，从 Phase {N+1} 继续？」
 4. **如果 Wiki 中无记录**：检查 `~/.hermes-feishu/answer/` 本地降级目录
 
 ### 与现有技能互动规则
 
-| 场景 | 互动方式 |
-|------|---------|
-| Phase 6 Build 生成 HTML 页面 | 加载 `feishu-html` 技能，使用其阶段三—六流程。answer 的 Standards 中定义的品牌/风格规范传给 feishu-html |
-| Phase 6 Build 生成飞书文档 | 加载 `feishu-doc` 技能，使用其创建流程 |
-| Phase 6 Build 创建技能 | 使用 `skill_manage(action='create')` |
-| Phase 7 Review HTML 产出 | 加载 `feishu-html` 技能，使用其增强版阶段五（含 design-review 设计质量审查） |
-| Phase 7 Review 方案文档 | 加载 `blue-team` 技能，对方案逻辑进行压力测试 |
-| 所有阶段 Wiki 操作 | 使用本技能内置的 Feishu API 封装；不依赖 feishu-wiki 技能（避免循环依赖） |
+> **本技能独立生效**：下表的外部技能全部是可选增强。环境里没有某个技能时，用右侧的内置兜底完成同样的活，不得因为缺技能而中断流程或降低交付标准。
+
+| 场景 | 有该技能时 | 没有该技能时（内置兜底） |
+|------|-----------|------------------------|
+| Phase 6 Build 生成 HTML 页面 | 加载 `feishu-html` | 手写单文件 HTML，内联样式，本地打开自检 |
+| Phase 6 Build 生成飞书文档 | 加载 `feishu-doc` | 本技能内置的 lark-cli 一步法；无飞书环境降级本地 .md |
+| Phase 6 Build 重构 README / 文档 | 加载 `huashu-design` 轻量注入信息层级 | 按 `references/readme-design-paradigm.md` 的 6 层结构重写 |
+| Phase 6 Build 创建技能 | 使用 `skill_manage(action='create')` | 按目录规范手写 SKILL.md |
+| Phase 7 Review HTML 产出 | 加载 `feishu-html` 阶段五验证 | 手动检查：可打开、无控制台错误、窄宽两档不破版 |
+| Phase 7 Review 方案文档 | 加载 `blue-team` 全面模式 | 用 7.2 内置三步版 + 7.2a 红队 |
+| Phase 7 深度审视 / 文案门禁 | `advanced-elicitation` / `editorial-review-prose` | 跳过，不视为缺陷 |
+| 所有阶段 Wiki 操作 | — | 用本技能内置的 lark-cli 封装，不依赖 feishu-wiki |
 
 ---
 
@@ -787,7 +1214,7 @@ Date: {date}
 
 当用户只需要快速规划而不要完整 7 阶段时，支持精简模式：
 
-- `answer quick {topic}`：Clarify(精简) → Brief(模板) → Decompose(5 条任务)，跳 Architect/Standards/Build/Review
+- `answer quick {topic}`：Clarify(精简：本质 / 依据 / 优先级各一问) → Brief(模板) → Decompose(5 条任务)，跳 Architect/Standards/Build/Review
 - `answer brief {topic}`：只跑 Clarify + Brief，产出结构化简报
 - `answer review {project}`：只跑 Phase 7 审查已完成的产出
 
@@ -802,7 +1229,10 @@ Date: {date}
 
 🔴 CHECKPOINT → 识别为 🛠️ 新技能领域。确认。
 
-Phase 1 CLARIFY → 追问 5 轮：
+Phase 1 CLARIFY → 三层必过追问 + 5 轮业务追问：
+  本质：输入 doc_token，输出客户可转发的行程页（不是方案文档本身）
+  依据：运营现在手工拼排版——一手来源：运营 2 次口头反馈；无数据佐证耗时
+  优先级：现在必做（下周 3 个团出发）
   Q1: 谁在什么场景触发？→ 运营人员，客户要出行前生成
   Q2: 输入输出？→ 输入 doc_token，输出 HTML 页面
   Q3: 依赖？→ trip-landing(页面结构) + feishu-html(部署)
@@ -810,8 +1240,11 @@ Phase 1 CLARIFY → 追问 5 轮：
   Q5: 最不确定？→ 文档内容提取的准确性
 → 产出: CLARIFY_trip-summary.md ✓
 
-Phase 2 BRIEF → 结构化：
+Phase 2 BRIEF → 结构化 + 路径与规律对齐：
   核心原则: 一键交付 > 灵活配置; 客户体验优先; 品牌一致性
+  路径: 取 doc → 抽行程 → 排版 → 部署（4 步串行）
+  规律: 客户常改行程不改结构 → 抽取与排版必须解耦，否则每次改稿都要重排
+  待确认: 是否允许运营手动微调（推荐允许，成本低）
   产出物: SKILL.md + extract.py + build_page.py
 → 产出: BRIEF_trip-summary.md ✓
 
@@ -839,8 +1272,9 @@ Phase 6 BUILD → 逐步构建：
   Task 4 ✅ 端到端测试 → 测试用例通过
 → 产出: BUILD_LOG_trip-summary.md ✓
 
-Phase 7 REVIEW → 对照审查 + blue-team 压力测试：
-  完整性 ✅ | 一致性 ✅ | 标准合规 ✅ | 依赖闭合 ✅ | 受众适配 ✅
+Phase 7 REVIEW → 四层审计 + 对照审查 + blue-team 压力测试：
+  本质 ✅ | 依据 ✅ | 价值 ✅ | 匹配需求 ✅ → 四项全过
+  完整性 ✅ | 一致性 ✅ | 标准合规 ✅ | 依赖闭合 ✅ | 受众适配 ✅ | 结论可追溯 ✅
   评分: 88/100
 → 产出: REVIEW_trip-summary.md ✓
 
@@ -851,18 +1285,24 @@ Phase 7 REVIEW → 对照审查 + blue-team 压力测试：
 
 ## 验证清单
 
-- [ ] 每个阶段都产生了对应文档并写入飞书 Wiki
-- [ ] 文档目录结构符合规范（`{answername}/CLARIFY_*.md` 等）
+- [ ] Phase 1 三组追问（本质 / 依据 / 优先级）都有结论，定义卡与证据台账已填写
 - [ ] Phase 2 Brief 包含 ≤ 3 条核心原则
+- [ ] Phase 2 「路径与规律」已与用户逐条对齐，且每条路径都对应至少一条规律
 - [ ] Phase 5 任务全是垂直切片，无纯搭建任务
-- [ ] Phase 7 Review 包含对照审查 + 蓝军审查
-- [ ] Review 中有具体评分
+- [ ] Phase 6 Build 交付物已独立写入飞书 Wiki（Phase 1-5 合并为工作流记录文档，Phase 7 追加到末尾）
+- [ ] Phase 7 先跑四层审计再跑对照审查，审计结论是三种允许写法之一
+- [ ] Phase 7 Review 包含四层审计 + 对照审查 + 蓝军审查，且有具体评分
+- [ ] 交付物里没有「行业惯例 / 大家都这么说」这类无来源断言
 
 ---
 
 ## 开源仓库
 
-GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md + domain-mapping + README + CHANGELOG，含 v1.0.0 / v1.1.0 / v1.1.1 三个 Release。
+GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md + domain-mapping + README + CHANGELOG，含 v1.0 → v1.7.0 系列 Release。
+
+> **非飞书环境？** 使用 `answer-standalone` 技能（v2.0.0），纯本地 markdown 输出，零外部依赖。与原版 answer 共享相同的 7 阶段方法论和 6 领域模板。
+
+**独立封装文档**: [Answer 方法论完全指南](https://acn3kz7weyc0.feishu.cn/wiki/JYK4wJTEdiA3TPkN8R3ceMJCnfd) — 脱离 Hermes 技能系统的 18 章独立参考文档，归档于 AI Native 工作流节点下。
 
 ---
 
@@ -873,6 +1313,14 @@ GitHub: **[jorinyang/answer](https://github.com/jorinyang/answer)** — SKILL.md
 | SKILL.md | `~/.hermes-feishu/skills/productivity/answer/SKILL.md` | 主技能文件（本文件） |
 | domain-mapping.md | `references/domain-mapping.md` | 6 领域 × 7 阶段完整追问清单和模板变体 |
 | readme-design-paradigm.md | `references/readme-design-paradigm.md` | README 设计范式：designer-skills 6 层结构（Hero→问题→Flow→原则→细节→收尾） |
-| README.md | GitHub 仓库首页 | 项目介绍、设计初衷、快速开始 |
-| CHANGELOG.md | GitHub 仓库 | 版本变更记录（v1.0 → v1.1.1） |
+| dingtalk-deap.md | `references/dingtalk-deap.md` | 钉钉DEAP企业AI平台模块矩阵与费用参考 |
+| skill-audit-pattern.md | `references/skill-audit-pattern.md` | 技能审计模式：用 answer 逆向审计已有技能/方案的 4 步流程 |
+| training-proposal-template.md | `references/training-proposal-template.md` | 培训/工作坊方案模板：6章+附录结构，场景筛选→课程设计→担忧回应→映射表（企业AI部署/DEAP工作坊类） |
+| training-outline-lite.md | `references/training-outline-lite.md` | 轻量培训大纲模板：纯课程内容，不含报价/场景诊断/公司介绍（已有合作关系、仅需课程设计的场景） |
+| internal-onboarding-training.md | `references/internal-onboarding-training.md` | 内部工具上手培训模式：三层目标框架+手机端实操+逐字稿内容规范（与上一条是两种培训类型） |
+| `pricing-estimation.md` | `references/pricing-estimation.md` | 软件功能报价方法论：Fibonacci+RICE 双因子定价，双 Sheet Excel 输出 |
+| `distribution.md` | `references/distribution.md` | 分发包指南：tar.gz 打包、目标安装、GitHub Token 推送陷阱 |
+| `lark-cli-v2-quickref.md` | `references/lark-cli-v2-quickref.md` | lark-cli v2 API 命令速查：创建/写入/删除/验证 Wiki 文档的正确 flags |
+| marketing-funnel-template.md | `references/marketing-funnel-template.md` | 运营营销方案漏斗数学模板：GMV反推、渠道矩阵、内容复用流、私域承接时间线、预算分配参考 |
+| CHANGELOG.md | GitHub 仓库 | 版本变更记录（v1.0 → v1.7.0） |
 | LICENSE | GitHub 仓库 | MIT 开源许可 |
